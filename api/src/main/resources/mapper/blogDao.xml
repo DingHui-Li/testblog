@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.lidh.blog.Dao.blogDao">
+    <select id="getById" resultType="blog">
+        select * from blog where id= #{id}
+    </select>
+
+    <select id="getAll" resultType="blog">
+       select blog.id,blog.title,blog.desc,blog.time,GROUP_CONCAT(tag.name) as tag
+            from blog
+            join tag_map on blog.id=blogid
+            join tag on tagid=tag.id
+            GROUP BY blog.id
+            order by blog.time desc limit #{offset},#{limit}
+    </select>
+
+    <insert id="addBlog" parameterType="blog" useGeneratedKeys="true" keyProperty="id">
+        insert into blog (title,`desc`,content,`time`)values (#{title},#{desc},#{content},now());
+    </insert>
+    <select id="getNum" resultType="int">
+        select count(*) from blog;
+    </select>
+</mapper>

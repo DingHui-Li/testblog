@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.lidh.blog.Dao.tagDao">
+    <select id="getAll" resultType="tag">
+        select * from tag;
+    </select>
+
+    <insert id="addTag" parameterType="tag" useGeneratedKeys="true" keyProperty="id">
+        insert into tag (name)values(#{name})
+    </insert>
+
+    <select id="getTag" resultType="int">
+        select id from tag where name=#{name};
+    </select>
+
+    <insert id="addTagMap">
+        insert  into  tag_map (tagid,blogid)values
+        <foreach collection="tagid" item="tagid" separator=",">
+            (#{tagid},#{blogid})
+        </foreach>
+    </insert>
+
+    <select id="getNum" resultType="int">
+        select count(*) from tag
+    </select>
+</mapper>
