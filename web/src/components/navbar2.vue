@@ -21,7 +21,9 @@
 		<v-flex xs12 md12 lg9 xl10>
 			<v-layout wrap>
 				<v-flex xs12 >
+					<keep-alive>
 						<router-view ></router-view>
+					</keep-alive>
 				</v-flex>
 			</v-layout>
 		</v-flex>
@@ -37,8 +39,8 @@ export default {
 			catalog:[
 				{'name':'网站概览','icon':'equalizer','to':'/admin/overview'},
 				{'name':'写博客','icon':'font_download','to':'/admin/write'},
-				{'name':'博客管理','icon':'vertical_split','to':'manage'},
-				{'name':'标签管理','icon':'turned_in','to':'tag'}
+				{'name':'博客管理','icon':'vertical_split','to':'/admin/manage'},
+				{'name':'标签管理','icon':'turned_in','to':'./admin/tag'}
 			]
 		}
 	},

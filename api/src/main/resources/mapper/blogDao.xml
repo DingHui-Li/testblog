@@ -4,11 +4,16 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.lidh.blog.Dao.blogDao">
     <select id="getById" resultType="blog">
-        select * from blog where id= #{id}
+        select blog.*,GROUP_CONCAT(tag.name) as tag
+            from blog
+            join tag_map on blog.id=blogid
+            join tag on tagid=tag.id
+            where blog.id=#{id}
+            GROUP BY blog.id
     </select>
 
     <select id="getAll" resultType="blog">
-       select blog.id,blog.title,blog.desc,blog.time,GROUP_CONCAT(tag.name) as tag
+       select blog.id,blog.title,blog.desc,blog.time,blog.cover,GROUP_CONCAT(tag.name) as tag
             from blog
             join tag_map on blog.id=blogid
             join tag on tagid=tag.id
@@ -17,9 +22,20 @@
     </select>
 
     <insert id="addBlog" parameterType="blog" useGeneratedKeys="true" keyProperty="id">
-        insert into blog (title,`desc`,content,`time`)values (#{title},#{desc},#{content},now());
+        insert into blog (title,`desc`,content,`time`,cover)values (#{title},#{desc},#{content},now(),#{cover});
     </insert>
     <select id="getNum" resultType="int">
         select count(*) from blog;
     </select>
+
+    <delete id="deleteBlog">
+        delete from blog where id in
+        <foreach collection="array" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="update" parameterType="blog">
+        update blog set title=#{title},`desc`=#{desc},content=#{content},`time`=now(),cover=#{cover} where id=#{id}
+    </update>
 </mapper>

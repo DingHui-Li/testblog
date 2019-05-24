@@ -7,7 +7,7 @@
 							<v-card style="border-radius:5px;margin-bottom:20px" v-for="blog in filter" :key="'blog'+blog.id" v-ripple @click="click(blog.id)">
 								<v-layout>
 									<v-flex xs4 lg3>
-										<v-img :src="require('../assets/bg.jpg')" style="border-radius:5px 0 0 5px;height:100%;width:100%"></v-img>
+										<v-img :src="coverPath(blog.cover)" style="border-radius:5px 0 0 5px;height:100%;width:100%"></v-img>
 									</v-flex>
 									<v-flex xs8 lg9 class="text-no-wrap text-truncate">
 										<v-card-title class="title font-weight-black">{{blog.title}}</v-card-title>
@@ -56,9 +56,13 @@ export default {
 		}
 	},
 	methods:{
+		coverPath:function(path){
+			if(path==null)path="/default.jpg"
+			return apiHost+path;
+		},
 		dateFormat:function(date){
 			let d=new Date(date);
-			return d.getFullYear()+"-"+d.getMonth()+"-"+d.getDay()
+			return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getUTCDate()+" "+d.getUTCHours()+":"+d.getMinutes()+":"+d.getSeconds();
 		},
 		tagClick:function(tag,e){
 			e.stopPropagation();

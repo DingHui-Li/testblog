@@ -30,7 +30,7 @@
 		<v-content>
 			<v-layout>
 				<v-flex xs12 style="height:100vh">
-				<keep-alive>
+				<keep-alive exclude="contentPage">
 					<router-view> </router-view>
 				</keep-alive>
 				</v-flex>

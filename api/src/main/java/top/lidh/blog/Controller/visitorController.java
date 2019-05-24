@@ -7,6 +7,7 @@ import top.lidh.blog.Entity.visitor;
 
 import java.awt.print.PrinterException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -34,6 +35,20 @@ public class visitorController {
         try{
             int num=vd.getNum();
             result.put("num",num);
+            result.put("code","200");
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            result.put("code","-1");
+        }
+        return result;
+    }
+
+    @GetMapping("/getdata")
+    public Map<String,Object> getdata(){
+        Map<String,Object> result=new HashMap<>();
+        try{
+            List<visitor> re=vd.getData();
+            result.put("data",re);
             result.put("code","200");
         }catch (Exception e){
             System.out.println(e.getMessage());

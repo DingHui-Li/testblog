@@ -5,6 +5,15 @@ public class visitor {
     private String ip;
     private String adress;
     private String time;
+    private String num;
+
+    public String getNum() {
+        return num;
+    }
+
+    public void setNum(String num) {
+        this.num = num;
+    }
 
     public String getId() {
         return id;
@@ -36,5 +45,16 @@ public class visitor {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    @Override
+    public String toString() {
+        return "visitor{" +
+                "id='" + id + '\'' +
+                ", ip='" + ip + '\'' +
+                ", adress='" + adress + '\'' +
+                ", time='" + time + '\'' +
+                ", num='" + num + '\'' +
+                '}';
     }
 }

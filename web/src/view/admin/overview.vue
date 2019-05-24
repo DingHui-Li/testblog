@@ -45,21 +45,7 @@
 					</v-card>
 						<v-card-text>
 							<div caption class="text-xs-center" style="color:white;margin-bottom:10px">近30天访问趋势</div>
-							<v-sheet color="rgba(0, 0, 0, .12)">
-								<v-sparkline
-								:value="value"
-								color="rgba(255, 255, 255, .7)"
-								height="100"
-								padding="24"
-								line-width="1"
-								stroke-linecap="round"
-								smooth
-								>
-								<template v-slot:label="item">
-									{{ item.value }}
-								</template>
-								</v-sparkline>
-							</v-sheet>
+							<div ref='chart' style="height:400px;width:100%;"></div>
 						</v-card-text>
 					</v-card>
 				</v-flex>
@@ -69,6 +55,7 @@
 </template>
 <script>
 import {apiHost} from '../../main'
+import echarts from 'echarts'
 export default {
 	name:'overview',
 	data(){
@@ -110,11 +97,82 @@ export default {
 				_this.statisticsData[0].num=res.data.blognum;
 				_this.statisticsData[1].num=res.data.tagnum;
 			})
+		},
+		getHistory:function(){
+			let _this=this;
+			this.axios({
+				method:'get',
+				url:apiHost+"/visit/getdata"
+			}).then(function(res){
+				_this.initCharts(res.data.data);
+			})
+		},
+		initCharts:function(data){
+			let days=data.map((item)=>{
+				let d=new Date(item.time);
+				return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getUTCDate();
+			});
+			let num=data.map((item)=>item.num);
+			let charts=echarts.init(this.$refs.chart);
+			let options={
+					color: ['#fff'],
+					tooltip : {
+					trigger: 'axis',
+					axisPointer : {
+						type : 'shadow'
+					}
+					},
+					xAxis : [
+					{
+						data : days,
+						axisLabel:{
+							color:'#fff'
+						},
+						splitLine:{
+							show:false
+						},
+						axisLine:{
+							lineStyle:{
+								color:'#fff',
+								width:3
+							}
+						}
+					}
+					],
+					yAxis : [
+					{
+						type : 'value',
+						axisLabel:{
+							color:'#fff'
+						},
+						splitLine:{
+							show:false
+						},
+						axisLine:{
+							lineStyle:{
+								color:'#fff',
+								width:3
+							}
+						}
+					}
+					],
+					series : [
+					{
+						name:'访问人数',
+						type:'line',
+						barWidth: '60%',
+						data:num
+					}
+					]
+			};
+			charts.setOption(options);
+			window.addEventListener('resize',function() {charts.resize()});
 		}
 	},
 	mounted:function(){
 		this.getVisitNum();
 		this.getBlogNum();
+		this.getHistory();
 	}
 }
 </script>

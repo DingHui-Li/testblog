@@ -13,4 +13,6 @@ public interface blogDao {
     List<blog> getAll(int offset,int limit);
     int addBlog(blog b);
     int getNum();
+    int deleteBlog(String[] id);
+    int update(blog b);
 }

@@ -9,5 +9,7 @@
     <select id="getNum" resultType="int">
         select count(*) from visitor;
     </select>
-
+    <select id="getData" resultType="visitor">
+        SELECT COUNT(*)as num,GROUP_CONCAT(id)as ip,`time`  FROM `visitor` group by date_format(`time`,'%Y-%M-%D') limit 30
+    </select>
 </mapper>

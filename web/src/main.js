@@ -4,6 +4,7 @@ import App from './App.vue'
 import vuetify from 'vuetify'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import CKEditor  from '@ckeditor/ckeditor5-vue'
 
 import 'vuetify/dist/vuetify.min.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
@@ -11,6 +12,7 @@ Vue.use(vuetify,{
   iconfont: 'md'
 })
 Vue.use(VueAxios,axios);
+Vue.use(CKEditor);
 Vue.config.productionTip = false
 export const apiHost="http://localhost:8888";
 //--------------------------路由配置----------------
@@ -24,6 +26,7 @@ import contentPage from './view/contentPage.vue'
 
 import overview from './view/admin/overview'
 import write from './view/admin/write'
+import manage from './view/admin/blogManage'
 
 import empty from './components/empty'
 
@@ -40,6 +43,8 @@ const routes=[
         {path:'',redirect:'overview'},
         {path:'overview',component:overview},
         {path:'write',component:write},
+        {path:'write/:id',component:write},
+        {path:'manage',component:manage},
     ]},
     {path:"/refresh",component:empty}
 ]

@@ -5,10 +5,28 @@ import java.util.Date;
 public class blog {
     private String id;
     private String title;
+    private String cover;
     private String desc;
     private String content;
     private Date time;
     private String tag;
+    private String type;//new or update； 用于判断是增加或更新blog
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
+    }
 
     public String getId() {
         return id;
