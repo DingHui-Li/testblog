@@ -16,7 +16,7 @@
     </select>
 
     <insert id="addTagMap">
-        insert  into  tag_map (tagid,blogid)values
+        insert ignore into  tag_map (tagid,blogid)values
         <foreach collection="tagid" item="tagid" separator=",">
             (#{tagid},#{blogid})
         </foreach>
@@ -25,4 +25,23 @@
     <select id="getNum" resultType="int">
         select count(*) from tag
     </select>
+
+    <select id="getAllAndNum" resultType="tag">
+        select id,`name`,IFNULL(tagid,-1)as `isnull`,count(1)as num from tag left join tag_map on tag.id=tagid group by id
+    </select>
+
+    <update id="update" parameterType="tag">
+        update tag set name=#{name} where id=#{id}
+    </update>
+
+    <delete id="delete">
+        delete from tag where id in
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deletebyblog">
+        delete from tag_map where blogid=#{blogid}
+    </delete>
 </mapper>

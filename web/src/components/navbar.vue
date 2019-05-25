@@ -2,7 +2,7 @@
 	<div>
 		<v-toolbar>
 			<v-layout align-center justify-center row fill-height>
-				<v-flex xs6 md1>
+				<v-flex xs5 md1>
 					<v-toolbar-side-icon @click="drawer=!drawer" class="hidden-md-and-up"></v-toolbar-side-icon>
 					<v-icon @click="dialog=true">person</v-icon>
 				</v-flex>
@@ -13,6 +13,9 @@
 					<v-tabs grow color=rgba(0,0,0,0)>
 					<v-tab v-for="(val,key) in catalog" :key="'s'+key" :to="val">{{key}} </v-tab>
 					</v-tabs>
+				</v-flex>
+				<v-flex xs1>
+					<v-icon @click="changeTheme">brightness_4</v-icon>
 				</v-flex>
 			</v-layout>
 		</v-toolbar>
@@ -29,10 +32,10 @@
 		</v-navigation-drawer>
 		<v-content>
 			<v-layout>
-				<v-flex xs12 style="height:100vh">
-				<keep-alive exclude="contentPage">
-					<router-view> </router-view>
-				</keep-alive>
+				<v-flex xs12>
+					<keep-alive exclude="contentPage">
+						<router-view> </router-view>
+					</keep-alive>
 				</v-flex>
 			</v-layout>
         </v-content>
@@ -78,8 +81,13 @@ export default {
 					'主页':'/home',
 					'关于':'/about',
 					'blog':'/blog',
-					'留言':'/msg'
+					'标签':'/tag'
 			},
+		}
+	},
+	methods:{
+		changeTheme:function(){
+			this.$emit('changeTheme');
 		}
 	}
 }

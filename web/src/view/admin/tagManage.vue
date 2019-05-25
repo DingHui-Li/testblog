@@ -13,7 +13,7 @@
 						<v-icon style="cursor:pointer" @click="getData">refresh</v-icon>
 					</v-flex>
 					<v-flex xs4>
-						<v-toolbar-title style="cursor:pointer">Blog管理</v-toolbar-title>
+						<v-toolbar-title style="cursor:pointer">标签管理</v-toolbar-title>
 					</v-flex>
 					<v-flex xs4>
 						<div ref="delBtn" style="display:none">
@@ -24,26 +24,34 @@
 			</v-toolbar>
 		</v-flex>
 		<v-flex xs12 lg12 xl12 style="padding:10px;border-radius:5px;" class="elevation-1">
-			<v-data-table :items="blogData" :headers="tableHead" sort-icon="none" hide-actions  select-all v-model="selected" :loading="loading">
+			<v-text-field v-model="search" label="搜索" single-line hide-details append-icon="search" style="width:50%;float:right"></v-text-field>
+			<v-data-table :items="tagData" :headers="tableHead" sort-icon="none" hide-actions  select-all v-model="selected" :loading="loading" :search="search">
 				<v-progress-linear v-slot:progress color="blue" indeterminate></v-progress-linear>
 				<template v-slot:items="props">
 					<td><v-checkbox  v-model="props.selected" hide-details></v-checkbox></td>
-					<td @click="click(props.item.id)">{{props.item.id}}</td>
-					<td @click="click(props.item.id)">{{props.item.title}}</td>
-					<td @click="click(props.item.id)">{{props.item.desc}}</td>
-					<td @click="click(props.item.id)">
-						<div v-if="props.item.tag!=null">
-							<v-chip v-for="tag in props.item.tag.split(',')" :key="tag">{{tag}}</v-chip>
-						</div>
+					<td>{{props.item.id}}</td>
+					<td> 
+						<v-edit-dialog :return-value.sync="props.item.name" large lazy persistent  @save="updateTag(props.item.id)">
+							<v-chip label>
+								{{props.item.name}}
+							</v-chip>
+							<template v-slot:input>
+								<div class="mt-3 title">Update name</div>
+							</template>
+							<template v-slot:input>
+								<v-text-field
+									v-model="props.item.name"
+									label="Edit"
+									single-line
+									counter
+									autofocus
+								></v-text-field>
+							</template>
+						</v-edit-dialog>
 					</td>
-					<td @click="click(props.item.id)">{{props.item.time}}</td>
+					<td>{{props.item.num}}</td>
 				</template>
 			</v-data-table>
-		</v-flex>
-		<v-flex xs12>
-			<div class="text-xs-center">
-				<v-pagination v-model="nowPage" :length="allPageNum" total-visible="5"></v-pagination>
-			</div>
 		</v-flex>
 		<v-snackbar v-model="snack" :timeout="3000" :color="snackColor">
 			{{ snackText }}
@@ -55,7 +63,7 @@
 					<v-flex xs12>
 						<div class="title text-xs-center" style="margin:20px 10px">确定要删除吗？</div>
 					</v-flex>
-						<v-btn depressed color="error" style="margin-bottom:20px" @click="deleteBlog">确定</v-btn>
+						<v-btn depressed color="error" style="margin-bottom:20px" @click="deleteTag">确定</v-btn>
 						<v-btn depressed color="success" style="margin-bottom:20px" @click="dialog=false">取消</v-btn>
 				</v-layout>
 			</v-card>
@@ -69,6 +77,7 @@
 			</v-card>
 		</v-dialog>
 	</v-layout>
+
 </template>
 <script>
 import {apiHost} from '../../main'
@@ -77,93 +86,102 @@ export default {
 	name:'manage',
 	data(){
 		return{
+			search:'',
 			snack:false,
 			snackText:'',
 			snackColor:'',
 			dialog:false,
 			deleteDialog:false,
 
-			selected: [],
-			blogData:[],
-			allPageNum:0,//总页数
-			nowPage:1,//当前页数,
+			selected:[],
+			tagData:[],
 			tableHead:[
-				{text:'ID'},
-				{text:'标题'},
-				{text:'desc'},
-				{text:'标签'},
-				{text:'time'},
+				{text:'ID',value:'id'},
+				{text:'标签名',value:'name'},
+				{text:'blog数',value:'num'},
 			],
-			loading:true,//加载中
+			loading:true,
+
 		}
 	},
 	computed:{
 	},
 	methods:{
-		click:function(id){//表格一行点击事件
-			this.$router.push({path:`/admin/write/${id}`});
+		getData:function(){
+			this.loading=true;
+			let _this=this;
+			this.axios({
+				method:'get',
+				url:apiHost+'/tag/get_all_tag_num'
+			}).then(function(res){
+				if(res.data.code==200){
+					_this.tagData=res.data.data;
+				}
+				_this.loading=false;
+				console.log(res.data);
+			})
 		},
-		deleteBlog:function(){
-			this.deleteDialog=true;
-			this.dialog=false;
-			let ids=this.selected.map(item=>item.id);
-			ids=JSON.stringify(ids);
+		updateTag:function(id){
+			let length=this.tagData.length;
+			let tag;
+			for(let i=0;i<length;i++)//根据id获取tag数据
+			{
+				if(this.tagData[i].id==id){
+					tag=this.tagData[i];break;
+				}
+			}
 			let _this=this;
 			this.axios({
 				method:'post',
-				url:apiHost+'/blog/delete',
-				data:qs.stringify({'ids':ids}),
+				url:apiHost+'/tag/update',
+				data:JSON.stringify({'id':tag.id,'name':tag.name}),
+				headers:{
+					'content-type':'application/json;charset=utf-8'
+				}
+			}).then(function(res){
+				if(res.data.code==200){
+					_this.snackText="修改成功";
+					_this.snackColor="success";
+				}else{
+					_this.snackText="修改失败";
+					_this.snackColor="error";
+				}
+				_this.snack=true;
+			})
+		},
+		deleteTag:function(){
+			this.deleteDialog=true;
+			this.dialog=false;
+			let ids=this.selected.map(item=>item.id);
+			let _this=this;
+			this.axios({
+				method:'delete',
+				url:apiHost+'/tag/delete',
+				data:JSON.stringify({'ids':ids}),
+				headers:{
+					'content-type':'application/json;charset=utf-8'
+				}
 			}).then(function(res){
 				if(res.data.code==200){
 					_this.snackText="删除成功";
 					_this.snackColor="success";
 					_this.getData();
-				}
-				else{
-					_this.snackText="删除失败";
+				}else{
+					_this.snackText="修改失败";
 					_this.snackColor="error";
 				}
-				_this.snack=true;
 				_this.deleteDialog=false;
-			})
-		},
-		getData:function(){
-			this.loading=true;
-			let _this=this;
-			let offset=(this.nowPage-1)*20;
-			this.axios({
-				method:'get',
-				url:apiHost+"/blog/getall?offset="+offset+"&limit=20"
-			}).then(function(res){
-				_this.checkBox=[];
-				let data=res.data.data;
-				if(res.data.code==200){
-					_this.blogData=data;
-					_this.loading=false;
-				}
-			})
-		},
-		getBlogNum:function(){//and tagNum
-			let _this=this;
-			this.axios({
-				method:'get',
-				url:apiHost+"/blog/getnum"
-			}).then(function(res){
-				if(res.data.code==200)
-				_this.allPageNum=Math.ceil(res.data.blognum/20);
+				_this.snack=true;
 			})
 		},
 	},
 	created:function(){
-		this.getBlogNum();
+
 	},
 	mounted:function(){
 		this.getData();
 	},
 	watch:{
-		nowPage:function(newVal,oldVal){//若nowpage变化，则重新获取数据
-			this.getData();
-		},
 		selected:function(newVal){
 			if(newVal.length==0) this.$refs.delBtn.style.display='none';
 			else this.$refs.delBtn.style.display='block';

@@ -18,7 +18,7 @@
 				</v-layout>
 			</v-toolbar>
 		</v-flex>
-		<v-flex xs12 lg10 xl9 style="padding:10px;height:100%;border-radius:5px;" class="elevation-1">
+		<v-flex xs12 lg10 xl9 style="padding:10px;height:100%;border-radius:5px;margin-bottom:50px" class="elevation-1">
 			<v-img style="width:100%;height:300px;" :src="apiHost+coverPath" @click="inputBtn">
 				<v-layout align-center justify-center wrap style="height:100%">
 					<v-flex xs2 ref="mydropzone"  >
@@ -30,14 +30,13 @@
 			<v-text-field label="标题" v-model="title" style="height:10%"></v-text-field>
 			<v-combobox chips v-model='chips' multiple label="添加标签" style="height:10%" :items="allTag"></v-combobox>
 			<div ref='toolbar'></div>
-			<div ref='text' style="height:70%"></div>
+			<div ref='text' style="height:70%;"></div>
 		</v-flex>
 	</v-layout>
 
 </template>
 <script>
 import wangeditor from 'wangeditor'
-
 import {apiHost} from '../../main'
 export default {
 	name:'write',
@@ -65,6 +64,26 @@ export default {
 			editor.customConfig.uploadImgServer = apiHost+'/blog/upload';
 			editor.customConfig.uploadFileName = 'file';
 			editor.customConfig.zIndex = 1;
+			editor.customConfig.menus = [
+				 'head',  // 标题
+				'bold',  // 粗体
+				'fontSize',  // 字号
+				'fontName',  // 字体
+				'italic',  // 斜体
+				'underline',  // 下划线
+				'strikeThrough',  // 删除线
+				'foreColor',  // 文字颜色
+				'backColor',  // 背景颜色
+				'link',  // 插入链接
+				'list',  // 列表
+				'justify',  // 对齐方式
+				'quote',  // 引用
+				'emoticon',  // 表情
+				'image',  // 插入图片
+				'code',  // 插入代码
+				'undo',  // 撤销
+				'redo'  // 重复
+			]
 			const _this=this;
 			editor.customConfig.customUploadImg=function(file,insert){
 				let formData =new FormData();

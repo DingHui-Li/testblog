@@ -3,6 +3,19 @@
 			<v-flex xs12 lg6 offset-lg3 style="">
 				<v-container>
 					<v-layout wrap justify-center>
+						<v-flex xs12 v-if="selectTag.length!=0">
+							<v-card color=primary style="border-radius:5px;color:#fff;margin-bottom:20px">
+								<v-layout wrap>
+									<v-card-title>已选标签</v-card-title>
+									<div style="padding:10px">
+										<v-chip color=green text-color="white" v-for="(tag,index) in selectTag" :key="'selectTag'+tag" @click="selectTagClick(index)">
+											{{tag}}
+											<v-icon right size="20" color='#CFD8DC'>cancel</v-icon>
+										</v-chip>
+									</div>
+								</v-layout>
+							</v-card>
+						</v-flex>
 						<v-flex xs12>
 							<v-card style="border-radius:5px;margin-bottom:20px" v-for="blog in filter" :key="'blog'+blog.id" v-ripple @click="click(blog.id)">
 								<v-layout>
@@ -24,21 +37,10 @@
 							</v-card>
 						</v-flex>
 						<v-flex xs2>
-							<v-btn @click="getBlogData">加载</v-btn>
+							<v-btn @click="getBlogData" depressed>{{loadText}}</v-btn>
 						</v-flex>
 					</v-layout>
 				</v-container>
-			</v-flex>
-			<v-flex lg2 :style="{position:'fixed',right:selectTagPanel?0:'-230px',top:'20%','z-index':9,width:'250px',transition:'right 0.5s'}" ref='selectTagPanel'>
-				<v-card color=primary style="border-radius:5px 0 0 5px;color:#fff;">
-					<v-layout wrap>
-						<v-icon color="white" style="cursor:pointer" @click="selectTagPanel=!selectTagPanel">{{selectTagPanel?'keyboard_arrow_right':'keyboard_arrow_left'}}</v-icon>
-							<v-card-title>已选标签</v-card-title>
-							<div style="padding:10px">
-								<v-chip color=green text-color="white" v-for="(tag,index) in selectTag" :key="'selectTag'+tag" @click="selectTagClick(index)">{{tag}}<v-icon right size="20" color='#CFD8DC'>cancel</v-icon></v-chip>
-							</div>
-					</v-layout>
-				</v-card>
 			</v-flex>
 	</v-layout>
 </template>
@@ -53,6 +55,7 @@ export default {
 			selectTagPanel:false,
 			mini:true,
 			drawer: true,
+			loadText:'加载更多'
 		}
 	},
 	methods:{
@@ -64,24 +67,24 @@ export default {
 			let d=new Date(date);
 			return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getUTCDate()+" "+d.getUTCHours()+":"+d.getMinutes()+":"+d.getSeconds();
 		},
-		tagClick:function(tag,e){
+		tagClick:function(tag,e){//选中标签
 			e.stopPropagation();
 			if(!this.exist(this.selectTag,tag)){
 				this.selectTag.push(tag);
 			}
 		},
-		click:function(id){
+		selectTagClick:function(index){//取消选中某个标签
+			this.selectTag.splice(index,1);
+		},
+		click:function(id){//blog item点击事件
 			this.$router.push({path:`/blog/${id}`});
 		},
-		exist:function(arr,item){
+		exist:function(arr,item){//用于判断item是否存在于数组中
 			let length=arr.length;
 			for(let i=0;i<length;i++){
 				if(arr[i]==item) return true;
 			}
 			return false;
-		},
-		selectTagClick:function(index){
-			this.selectTag.splice(index,1);
 		},
 		getBlogData:function(){
 			let _this=this;
@@ -89,7 +92,10 @@ export default {
 				method:'get',
 				url:apiHost+"/blog/getall?offset="+this.nowBlogNum+"&limit=10"
 			}).then(function(res){
-				for(let i=0;i<res.data.data.length;i++){
+				let length=res.data.data.length;
+				if(length<10) _this.loadText="没有更多了";
+				for(let i=0;i<length;i++){
+					if(res.data.data[i].tag==null)res.data.data[i].tag="";
 					_this.blogData.push(res.data.data[i]);
 				}
 				

@@ -21,12 +21,14 @@ import navbar2 from './components/navbar2'
 import aboutPage from './view/aboutPage.vue'
 import homePage from './view/homePage.vue'
 import blogPage from './view/blogPage.vue'
-import msgPage from './view/msgPage.vue'
+import tagPage from './view/tagPage.vue'
 import contentPage from './view/contentPage.vue'
 
 import overview from './view/admin/overview'
 import write from './view/admin/write'
 import manage from './view/admin/blogManage'
+import tag from './view/admin/tagManage'
+
 
 import empty from './components/empty'
 
@@ -37,7 +39,7 @@ const routes=[
         {path:'about',component:aboutPage},
         {path:'blog',component:blogPage},
         {path:'/blog/:id',component:contentPage},
-        {path:'msg',component:msgPage}
+        {path:'tag',component:tagPage}
     ]},
     {path:'/admin',component:navbar2,children:[
         {path:'',redirect:'overview'},
@@ -45,6 +47,7 @@ const routes=[
         {path:'write',component:write},
         {path:'write/:id',component:write},
         {path:'manage',component:manage},
+        {path:'tag',component:tag},
     ]},
     {path:"/refresh",component:empty}
 ]

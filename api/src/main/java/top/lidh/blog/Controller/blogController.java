@@ -8,10 +8,13 @@ import top.lidh.blog.Dao.blogDao;
 import top.lidh.blog.Dao.tagDao;
 import top.lidh.blog.Entity.blog;
 import top.lidh.blog.Entity.tag;
+import top.lidh.blog.Util.util;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import java.util.List;
 
 @RestController
 @RequestMapping("/blog")
@@ -59,7 +62,7 @@ public class blogController {
         return  result;
     }
 
-    @PostMapping("/add")
+    @PostMapping("/add")//add or update
     public Map<String,Object> add(@RequestBody blog b){
         Map<String,Object> result=new HashMap<>();
         System.out.println(b.getType());
@@ -68,34 +71,17 @@ public class blogController {
                 bd.addBlog(b);
             }else if("update".equals(b.getType())){
                 bd.update(b);
+                td.deletebyblog(b.getId());
             }
                 List<tag> tags = td.getAll();
                 String tagStr = b.getTag();
-                String[] tagList = tagStr.split(",");
-                boolean exist = false;
-                for (int i = 0; i < tagList.length; i++) {
-                    exist = false;
-                    for (int j = 0; j < tags.size(); j++) {
-                        if (tagList[i].equals(tags.get(j).getName())) {
-                            exist = true;
-                            break;
-                        }
-                    }
-                    if (exist) {//如果标签已存在，则替换为标签id
-                        tagList[i] = td.getTag(tagList[i]) + "";
-                    } else {//若不存在，则添加后再替换为标签id
-                        tag t = new tag();
-                        t.setName(tagList[i]);
-                        td.addTag(t);
-                        tagList[i] = t.getId();
-                    }
-                }
+                String[] tagList=new util().getTagArray(tagStr,tags,td);
                 td.addTagMap(tagList, b.getId());
                 result.put("code", "200");
 
         }catch (Exception e){
             result.put("code","-1");
-            System.out.println(e);
+            e.printStackTrace();
         }
         return result;
     }
@@ -149,6 +135,27 @@ public class blogController {
             result.put("blognum",blognum);
             result.put("tagnum",tagnum);
             result.put("code","200");
+        }catch (Exception e){
+            result.put("code","-1");
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @PostMapping("/getbytag")
+    public Map<String,Object> getbytag(@RequestBody Map ids){
+        Map<String,Object> result=new HashMap<>();
+        try{
+            List<Integer> idlist=(List) ids.get("ids");
+            Collections.sort(idlist);
+            String likeStr="";
+            for(int i=0;i<idlist.size();i++){
+                likeStr+="%"+idlist.get(i);
+            }
+            likeStr+="%";
+            List<blog> re=bd.getbyTag(likeStr);
+            result.put("code","200");
+            result.put("data",re);
         }catch (Exception e){
             result.put("code","-1");
             e.printStackTrace();

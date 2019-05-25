@@ -1,4 +1,4 @@
-package top.lidh.blog;
+package top.lidh.blog.Util;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

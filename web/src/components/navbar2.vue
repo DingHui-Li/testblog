@@ -40,7 +40,7 @@ export default {
 				{'name':'网站概览','icon':'equalizer','to':'/admin/overview'},
 				{'name':'写博客','icon':'font_download','to':'/admin/write'},
 				{'name':'博客管理','icon':'vertical_split','to':'/admin/manage'},
-				{'name':'标签管理','icon':'turned_in','to':'./admin/tag'}
+				{'name':'标签管理','icon':'turned_in','to':'/admin/tag'}
 			]
 		}
 	},

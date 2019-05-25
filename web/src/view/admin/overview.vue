@@ -17,8 +17,8 @@
 		</v-flex>
 		<v-flex xs12>
 			<v-layout wrap>
-				<v-flex xs12 md6 xl4 style="padding:20px;" v-for="data in statisticsData" :key="data.name">
-					<v-card color="green" style="padding:20px;border-radius:5px">
+				<v-flex xs12 md6 xl4 style="padding:20px;" v-for="data in statisticsData" :key="data.name" >
+					<v-card color="green" style="padding:20px;border-radius:5px" v-ripple @click="to(data.to)">
 						<v-layout align-center>
 							<v-flex lg2>
 								<v-icon size="60" color="white">{{data.icon}}</v-icon>
@@ -64,15 +64,18 @@ export default {
 			statisticsData:[
 				{	'name':'博客总数',
 					'icon':'insert_drive_file',
-					'num':'0'
+					'num':'0',
+					'to':'manage'
 				},
 				{	'name':'标签总数',
 					'icon':'local_offer',
-					'num':'0'
+					'num':'0',
+					'to':'tag'
 				},
 				{	'name':'留言总数',
 					'icon':'forum',
-					'num':'0'
+					'num':'0',
+					'to':'msg'
 				},
 			],
 			visitNum:0
@@ -167,6 +170,9 @@ export default {
 			};
 			charts.setOption(options);
 			window.addEventListener('resize',function() {charts.resize()});
+		},
+		to:function(to){
+			this.$router.push("/admin/"+to);
 		}
 	},
 	mounted:function(){

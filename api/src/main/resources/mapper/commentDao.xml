@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.lidh.blog.Dao.commentDao">
+    <insert id="add" parameterType="comment">
+        insert into comment (`name`,blogid,comment,`time`)values(#{name},#{blogid},#{comment},now());
+    </insert>
+
+    <select id="get" resultType="comment">
+        select * from comment
+             where blogid=#{id} order by time desc limit #{offset},#{limit};
+    </select>
+
+    <select id="getLately" resultType="comment">
+         select comment.*,title from comment
+              left join blog on blog.id=blogid
+             order by time desc limit 6;
+    </select>
+</mapper>

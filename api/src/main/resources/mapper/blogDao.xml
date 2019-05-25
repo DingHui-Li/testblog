@@ -6,8 +6,8 @@
     <select id="getById" resultType="blog">
         select blog.*,GROUP_CONCAT(tag.name) as tag
             from blog
-            join tag_map on blog.id=blogid
-            join tag on tagid=tag.id
+            left join tag_map on blog.id=blogid
+            left join tag on tagid=tag.id
             where blog.id=#{id}
             GROUP BY blog.id
     </select>
@@ -15,8 +15,8 @@
     <select id="getAll" resultType="blog">
        select blog.id,blog.title,blog.desc,blog.time,blog.cover,GROUP_CONCAT(tag.name) as tag
             from blog
-            join tag_map on blog.id=blogid
-            join tag on tagid=tag.id
+            left join tag_map on blog.id=blogid
+            left join tag on tagid=tag.id
             GROUP BY blog.id
             order by blog.time desc limit #{offset},#{limit}
     </select>
@@ -38,4 +38,11 @@
     <update id="update" parameterType="blog">
         update blog set title=#{title},`desc`=#{desc},content=#{content},`time`=now(),cover=#{cover} where id=#{id}
     </update>
+
+    <select id="getbyTag" resultType="blog">
+        select blog.id,blog.title,blog.desc,blog.time,tags as tag from
+            (select GROUP_CONCAT(tagid)as tags,blogid from tag_map group by blogid) as a
+            join blog on blog.id=blogid
+            where tags like #{likeStr}
+    </select>
 </mapper>
