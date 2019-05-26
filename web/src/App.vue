@@ -14,9 +14,6 @@ export default {
       }
   },
   methods:{
-    click:function(){
-      window.open('http://www.beian.miit.gov.cn');
-    },
     changeTheme:function(){
       this.dark=!this.dark;
       this.light=!this.light;
@@ -24,5 +21,3 @@ export default {
   }
 }
 </script>
-<style>
-</style>

@@ -2,17 +2,17 @@
 	<v-layout wrap justify-center>
 		<v-flex xs12>
 			<v-card style="margin-bottom:20px;border-radius:5px">
-				<v-card-title class="display-1">我要发表看法</v-card-title>
+				<v-card-title class="headline">我要发表看法</v-card-title>
 				<v-card-text>
 					<v-text-field outline label="您的大名" v-model="nickName"></v-text-field>
 				</v-card-text>
 				<v-card-text>
 						<div ref='toolbar'></div>
-						<div ref='text' style="height:200px"></div>
+						<div ref='text' style="height:100px"></div>
 				</v-card-text>
 				<v-layout wrap justify-center >
-					<v-flex xs2 style="margin-bottom:10px">
-						<v-btn color="primary" depressed @click="submit">提交</v-btn>
+					<v-flex xs12 style="margin-bottom:10px" class="text-xs-center">
+						<v-btn color="primary caption font-weight-bold" depressed @click="submit">提交</v-btn>
 					</v-flex>
 				</v-layout>
 			</v-card>

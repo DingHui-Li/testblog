@@ -1,25 +1,26 @@
 <template>
 	<v-layout wrap>
-		<v-flex xs12>
-			<v-parallax  :src="coverPath">
+		<v-flex xs12 class="text-xs-center">
+			<v-parallax  :src="coverPath" class="hidden-md-and-down">
 				<v-layout align-center justify-center>
 					<div class="display-2 font-weight-thin text-uppercase font-weight-regular">{{contentData.title}}</div>
 				</v-layout>
 			</v-parallax>
 		</v-flex>
-		<v-flex xs12 md10 lg8 xl6 offset-md1 offset-lg2 offset-xl3 style="padding:0;">
-			<v-card style="border-radius:5px;padding:0">
+		<v-flex xs12 md10 lg8 xl6 offset-md1 offset-lg2 offset-xl3 style="padding:15px;">
+			<v-card style="border-radius:5px;padding:0px">
+				<div class="title font-weight-black text-xs-center" style="border-bottom:1px solid #e0e0e0;padding:20px">{{contentData.title}}</div>
+				<v-card-text class="text-xs-right caption">更新于：{{dateFormat(contentData.time)}}</v-card-text>
 				<!-- <v-card-text class="text-xs-center title">{{contentData.title}}</v-card-text> -->
 				<!-- <v-card-text id="textArea">
 					<ckeditor :editor="editor" v-model="contentData.content" :config="editorConfig" disabled></ckeditor>
 				</v-card-text> -->
 				<v-card-text v-html="contentData.content" style="border-radius:5px;margin-top:10px"></v-card-text>
-				<v-card-text class="text-xs-right caption">更新于：{{dateFormat(contentData.time)}}</v-card-text>
 			</v-card>
 		</v-flex>
 		<!-- -------------------------标签---------------- -->
 		<v-flex xs12 md10 lg8 xl6 offset-md1 offset-lg2 offset-xl3 v-if="contentData.tag.length!=0" style="padding:10px">
-			<v-chip color="primary" text-color="white" v-for="(chip,index) in contentData.tag.split(',')" :key="index">{{chip}}</v-chip>
+			<v-chip class="caption font-weight-bold" color="primary" text-color="white" v-for="(chip,index) in contentData.tag.split(',')" :key="index">{{chip}}</v-chip>
 		</v-flex>
 		<!-- ----------------------------评论区-------------------- -->
 		<v-flex xs12 md10 lg8 xl6 offset-md1 offset-lg2 offset-xl3 style="padding:15px;">
@@ -36,11 +37,7 @@
 				<v-divider></v-divider>
 			</v-card>
 		</v-flex>
-		<v-flex xs12 md10 lg8 xl6 offset-md1 offset-lg2 offset-xl3>
-			<v-layout justify-center>
-				<v-flex xs2><v-btn @click="getComment" depressed>{{loadText}}</v-btn></v-flex>
-			</v-layout>
-		</v-flex>
+		<v-flex xs12 class="text-xs-center"><v-btn @click="getComment" depressed class="caption font-weight-bold">{{loadText}}</v-btn></v-flex>
 	</v-layout>
 </template>
 <script>
@@ -88,7 +85,7 @@ export default {
 			}).then(function(res){
 				if(res.data.code==200){
 					let length=res.data.data.length;
-					if(length<20) _this.loadText="没有更多了"
+					if(length<20) _this.loadText="没有更多评论了"
 					for(let i=0;i<length;i++){
 						_this.comments.push(res.data.data[i]);
 					}

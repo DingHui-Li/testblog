@@ -12,9 +12,20 @@
              where blogid=#{id} order by time desc limit #{offset},#{limit};
     </select>
 
-    <select id="getLately" resultType="comment">
+    <select id="getAll" resultType="comment">
          select comment.*,title from comment
               left join blog on blog.id=blogid
-             order by time desc limit 6;
+             order by time desc limit #{offset},#{limit};
     </select>
+
+    <select id="getNum" resultType="int">
+        select count(*) from comment
+    </select>
+
+    <delete id="delete">
+        delete from comment where id in
+        <foreach collection="list" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>

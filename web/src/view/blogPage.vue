@@ -26,8 +26,8 @@
 										<v-card-title class="title font-weight-black">{{blog.title}}</v-card-title>
 										<v-card-text class="subheading hidden-xs-only">{{blog.desc}}</v-card-text>
 										<div v-if="blog.tag.length!=0">
-											<v-chip color="primary" text-color="white" 
-												style="margin-left:10px;z-index:1" v-for="tag in blog.tag.split(',')" :key="tag+blog.id" @click='tagClick(tag,$event)'>
+											<v-chip color="primary" text-color="white" class="caption"
+												style="margin-left:10px;z-index:1;" v-for="tag in blog.tag.split(',')" :key="tag+blog.id" @click='tagClick(tag,$event)'>
 												{{tag}}
 											</v-chip>
 										</div>
@@ -36,8 +36,8 @@
 								</v-layout>
 							</v-card>
 						</v-flex>
-						<v-flex xs2>
-							<v-btn @click="getBlogData" depressed>{{loadText}}</v-btn>
+						<v-flex xs12 class="text-xs-center">
+							<v-btn @click="getBlogData" depressed class=" caption font-weight-bold">{{loadText}}</v-btn>
 						</v-flex>
 					</v-layout>
 				</v-container>

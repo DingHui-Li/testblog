@@ -3,19 +3,14 @@
 		<v-flex xs12>
 			<v-toolbar style="box-shadow:none;border-bottom:1px solid #e0e0e0;">
 				<v-layout align-center justify-center row fill-height>
-					<v-flex xs2>
-						<v-toolbar-side-icon @click="drawer=!drawer" class="hidden-md-and-up"></v-toolbar-side-icon>
-						<router-link to="/">
-							<v-icon>keyboard_arrow_left</v-icon>
-						</router-link>
-					</v-flex>
-					<v-flex xs2>
+					<v-toolbar-side-icon @click="drawerChange" class="hidden-md-and-up"></v-toolbar-side-icon>
+					<v-flex xs3 class="text-xs-center">
 						<v-icon style="cursor:pointer" @click="getData">refresh</v-icon>
 					</v-flex>
-					<v-flex xs4>
+					<v-flex xs6 class="text-xs-center">
 						<v-toolbar-title style="cursor:pointer">标签管理</v-toolbar-title>
 					</v-flex>
-					<v-flex xs4>
+					<v-flex xs3 class="text-xs-right text-lg-left">
 						<div ref="delBtn" style="display:none">
 							<v-btn depressed color="primary" @click="dialog=true" >删除</v-btn>
 						</div>
@@ -107,6 +102,9 @@ export default {
 	computed:{
 	},
 	methods:{
+		drawerChange:function(){
+			this.$emit('drawerChange');
+		},
 		getData:function(){
 			this.loading=true;
 			let _this=this;

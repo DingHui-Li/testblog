@@ -19,6 +19,7 @@ public class blogDaoTest {
     @Test
     public void getbyid(){
        blog re=bd.getById("1");
+       if(re!=null)
        System.out.println(re.toString());
     }
 

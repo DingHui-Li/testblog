@@ -2,15 +2,10 @@
 	<v-layout wrap >
 		<v-flex xs12>
 			<v-toolbar style="box-shadow:none;border-bottom:1px solid #e0e0e0;">
-				<v-layout align-center justify-center row fill-height>
-					<v-flex xs4>
-						<v-toolbar-side-icon @click="drawer=!drawer" class="hidden-md-and-up"></v-toolbar-side-icon>
-						<router-link to="/">
-							<v-icon>keyboard_arrow_left</v-icon>
-						</router-link>
-					</v-flex>
-					<v-flex xs4>
-						<v-toolbar-title style="cursor:pointer">网站概览</v-toolbar-title>
+				<v-toolbar-side-icon @click="drawerChange" class="hidden-lg-and-up"></v-toolbar-side-icon>
+				<v-layout align-center justify-center wrap>
+					<v-flex xs12 class="text-xs-left text-md-center">
+						<v-toolbar-title style="cursor:pointer" class="title font-weight-bold">网站概览</v-toolbar-title>
 					</v-flex>
 				</v-layout>
 			</v-toolbar>
@@ -72,16 +67,19 @@ export default {
 					'num':'0',
 					'to':'tag'
 				},
-				{	'name':'留言总数',
+				{	'name':'评论总数',
 					'icon':'forum',
 					'num':'0',
-					'to':'msg'
+					'to':'comment'
 				},
 			],
 			visitNum:0
 		}
 	},
 	methods:{
+		drawerChange:function(){
+			this.$emit('drawerChange');
+		},
 		getVisitNum:function(){
 			let _this=this;
 			this.axios({
@@ -99,6 +97,15 @@ export default {
 			}).then(function(res){
 				_this.statisticsData[0].num=res.data.blognum;
 				_this.statisticsData[1].num=res.data.tagnum;
+			})
+		},
+		getCommentNum:function(){
+			let _this=this;
+			this.axios({
+				method:'get',
+				url:apiHost+"/comment/getnum"
+			}).then(function(res){
+				_this.statisticsData[2].num=res.data.data;
 			})
 		},
 		getHistory:function(){
@@ -123,7 +130,7 @@ export default {
 					trigger: 'axis',
 					axisPointer : {
 						type : 'shadow'
-					}
+					},
 					},
 					xAxis : [
 					{
@@ -164,7 +171,8 @@ export default {
 						name:'访问人数',
 						type:'line',
 						barWidth: '60%',
-						data:num
+						data:num,
+						smooth: true
 					}
 					]
 			};
@@ -178,6 +186,7 @@ export default {
 	mounted:function(){
 		this.getVisitNum();
 		this.getBlogNum();
+		this.getCommentNum();
 		this.getHistory();
 	}
 }

@@ -4,7 +4,7 @@ import App from './App.vue'
 import vuetify from 'vuetify'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-import CKEditor  from '@ckeditor/ckeditor5-vue'
+// import CKEditor  from '@ckeditor/ckeditor5-vue'
 
 import 'vuetify/dist/vuetify.min.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
@@ -12,23 +12,24 @@ Vue.use(vuetify,{
   iconfont: 'md'
 })
 Vue.use(VueAxios,axios);
-Vue.use(CKEditor);
+// Vue.use(CKEditor);
 Vue.config.productionTip = false
-export const apiHost="http://localhost:8888";
+// export const apiHost="http://localhost:8888";
+export const apiHost="http://lidh.top:8084/blog";
 //--------------------------路由配置----------------
-import navbar from './components/navbar'
-import navbar2 from './components/navbar2'
-import aboutPage from './view/aboutPage.vue'
-import homePage from './view/homePage.vue'
-import blogPage from './view/blogPage.vue'
-import tagPage from './view/tagPage.vue'
-import contentPage from './view/contentPage.vue'
+const navbar=() =>import('./components/navbar')
+const navbar2 =()=>import('./components/navbar2')
+const aboutPage=() =>import('./view/aboutPage.vue')
+const homePage =() =>import( './view/homePage.vue')
+const blogPage =() =>import( './view/blogPage.vue')
+const tagPage =() =>import( './view/tagPage.vue')
+const contentPage =() =>import( './view/contentPage.vue')
 
-import overview from './view/admin/overview'
-import write from './view/admin/write'
-import manage from './view/admin/blogManage'
-import tag from './view/admin/tagManage'
-
+const overview =() =>import( './view/admin/overview')
+const write =() =>import( './view/admin/write')
+const manage =() =>import( './view/admin/blogManage')
+const tag =() =>import( './view/admin/tagManage')
+const comment =() =>import( './view/admin/commentManage')
 
 import empty from './components/empty'
 
@@ -48,6 +49,7 @@ const routes=[
         {path:'write/:id',component:write},
         {path:'manage',component:manage},
         {path:'tag',component:tag},
+        {path:'comment',component:comment},
     ]},
     {path:"/refresh",component:empty}
 ]

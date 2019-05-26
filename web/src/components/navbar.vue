@@ -1,34 +1,36 @@
 <template>
 	<div>
 		<v-toolbar>
-			<v-layout align-center justify-center row fill-height>
-				<v-flex xs5 md1>
+			<v-layout align-center justify-center row >
+				<v-flex xs4 md1>
 					<v-toolbar-side-icon @click="drawer=!drawer" class="hidden-md-and-up"></v-toolbar-side-icon>
-					<v-icon @click="dialog=true">person</v-icon>
 				</v-flex>
 				<v-flex xs6 md4 lg2>
 					<v-toolbar-title style="cursor:pointer">个人博客</v-toolbar-title>
 				</v-flex>
 				<v-flex md4 class="hidden-sm-and-down" >
 					<v-tabs grow color=rgba(0,0,0,0)>
-					<v-tab v-for="(val,key) in catalog" :key="'s'+key" :to="val">{{key}} </v-tab>
+					<v-tab v-for="item in catalog" :key="'s'+item.name" :to="item.to"><v-icon>{{item.icon}}</v-icon>{{item.name}} </v-tab>
 					</v-tabs>
 				</v-flex>
-				<v-flex xs1>
+				<v-flex xs2 class="text-xs-center"><v-icon @click="dialog=true">person</v-icon></v-flex>
+				<v-flex xs2 class="text-xs-right text-md-center text-lg-left">
 					<v-icon @click="changeTheme">brightness_4</v-icon>
 				</v-flex>
 			</v-layout>
 		</v-toolbar>
 		<v-navigation-drawer  temporary  v-model="drawer" absolute>
-			<v-layout wrap  align-center justify-center >
-			<v-flex xs12 v-for="(val,key) in catalog" :key="'m'+val">
-				<v-card dark color="dark"  v-ripple style="border-radius:0;">
-				<router-link :to="val" tag="div">
-					<v-card-text><div class="text-xs-center" style="cursor:pointer" :to="val">{{key}}</div></v-card-text >
-				</router-link>
-				</v-card>
-			</v-flex>
-			</v-layout>
+			<v-img :src="require('../assets/bg.jpg')" style="width:100%;height:auto"></v-img>
+			<v-list>
+				<v-list-tile v-for="item in catalog" :key="item.name" @click="to(item.to)" v-ripple>
+					<v-list-tile-avatar>
+						<v-icon large>{{item.icon}}</v-icon>
+					</v-list-tile-avatar>
+					<v-list-tile-content class="subheading font-weight-black text-xs-center">
+						{{item.name}}
+					</v-list-tile-content>
+				</v-list-tile>
+			</v-list>
 		</v-navigation-drawer>
 		<v-content>
 			<v-layout>
@@ -77,17 +79,20 @@ export default {
 		return{
 			drawer:false,
 			dialog:false,
-			catalog:{ 
-					'主页':'/home',
-					'关于':'/about',
-					'blog':'/blog',
-					'标签':'/tag'
-			},
+			catalog:[
+					{'name':'主页','to':'/home','icon':'home'},
+					{'name':'关于','to':'/about','icon':'info'},
+					{'name':'blog','to':'/blog','icon':'view_list'},
+					{'name':'标签','to':'/tag','icon':'loyalty'}
+			],
 		}
 	},
 	methods:{
 		changeTheme:function(){
 			this.$emit('changeTheme');
+		},
+		to:function(to){
+			this.$router.push(to);
 		}
 	}
 }

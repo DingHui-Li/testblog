@@ -11,7 +11,7 @@
 					<v-layout wrap>
 						<v-card-title>已选标签</v-card-title>
 						<div style="padding:10px">
-							<v-chip color=green text-color="white" v-for="(tag,index) in selectTag" :key="'selectTag'+tag.id" @click="selectedTagClick(index)">
+							<v-chip class="font-weight-bold" color=green text-color="white" v-for="(tag,index) in selectTag" :key="'selectTag'+tag.id" @click="selectedTagClick(index)">
 								{{tag.name}}
 								<v-icon right size="20" color='#CFD8DC'>cancel</v-icon>
 							</v-chip>
@@ -19,7 +19,34 @@
 					</v-layout>
 				</v-card>
 			</v-flex>
+			<v-flex xs12 md10 lg8 xl6 offset-md1 offset-lg2 offset-xl3 style="padding:0;margin-top:100px">
+				<v-card v-for="blog in blogData" :key="'blog'+blog.id" v-ripple hover @click="toBlog(blog.id)">
+					<v-card-title class="subheading font-weight-black">{{blog.title}}</v-card-title>
+					<v-card-text>{{blog.desc}}</v-card-text>
+					<v-card-text class="text-xs-right caption">
+						{{dateFormat(blog.time)}}
+					</v-card-text>
+					<v-divider></v-divider>
+				</v-card>
+				<v-card>
+					<v-alert :value="blogData.length==0" color="error" icon="warning">
+						Sorry, 没有找到符合的结果 :(
+					</v-alert>
+				</v-card>
+			</v-flex>
 		</v-container>
+		<v-snackbar v-model="snack" :timeout="3000" :color="snackColor">
+			{{ snackText }}
+			<v-btn flat @click="snack = false">Close</v-btn>
+		</v-snackbar>
+		<v-dialog v-model="loading" hide-overlay persistent width="300">
+			<v-card	color="primary"	dark>
+				<v-card-text>
+					查询中
+					<v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
+				</v-card-text>
+			</v-card>
+		</v-dialog>
 	</v-layout>
 </template>
 <script>
@@ -31,14 +58,21 @@ export default {
 			selectTag:[],
 			tagData:[],
 			chipColor:['green', 'light-green','orange','deep-orange','blue-grey','primary'],
+			loading:false,
+			snack:false,
+			snackColor:'error',
+			snackText:'加载出错啦',
+			blogData:[]
 		}
 	},
 	computed:{
 		
 	},
 	methods:{
-		getData:function(){
-			this.loading=true;
+		toBlog:function(id){
+			this.$router.push({path:`/blog/${id}`});
+		},
+		getData:function(){//获取所有标签数据
 			let _this=this;
 			this.axios({
 				method:'get',
@@ -58,7 +92,25 @@ export default {
 				}
 			}
 			if(!exist) this.selectTag.push(this.tagData[index]);
+			this.getBlogData();
+		},
+		selectedTagClick:function(index){//已选择标签的点击事件==>移除
+			this.selectTag.splice(index,1);
+			if(this.selectTag.length!=0){
+				this.getBlogData();
+			}
+			else{
+				this.blogData=[];
+			}
+		},
+		dateFormat:function(date){
+			let d=new Date(date);
+			return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getUTCDate()+" "+d.getUTCHours()+":"+d.getMinutes()+":"+d.getSeconds();
+		},
+		getBlogData:function(){//获取匹配标签的blog
 			let ids=this.selectTag.map(item=>item.id);
+			this.loading=true;
+			let _this=this;
 			this.axios({
 				method:'post',
 				url:apiHost+'/blog/getbytag',
@@ -67,11 +119,15 @@ export default {
 					'content-type':'application/json;charset=utf-8'
 				}
 			}).then(function(res){
+				if(res.data.code==200){
+					_this.blogData=res.data.data;
+				}
+				else{
+					_this.snack=true;
+				}
 				console.log(res.data);
+				_this.loading=false;
 			})
-		},
-		selectedTagClick:function(index){//已选择标签的点击事件==>移除
-			this.selectTag.splice(index,1);
 		}
 	},
 	created:function(){

@@ -11,5 +11,7 @@ import java.util.List;
 public interface commentDao {
     int add(comment c);//添加一条评论
     List<comment> get(String id,int offset,int limit);//根据blogid获取评论
-    List<comment> getLately();//获取前6条评论
+    List<comment> getAll(int offset,int limit);//获取若干条评论
+    int getNum();//获取评论总数
+    int delete(List ids);
 }

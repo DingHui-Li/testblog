@@ -2,17 +2,12 @@
 	<v-layout wrap >
 		<v-flex xs12>
 			<v-toolbar style="box-shadow:none;border-bottom:1px solid #e0e0e0;">
+				<v-toolbar-side-icon @click="drawerChange" class="hidden-md-and-up"></v-toolbar-side-icon>
 				<v-layout align-center justify-center row fill-height>
-					<v-flex xs4>
-						<v-toolbar-side-icon @click="drawer=!drawer" class="hidden-md-and-up"></v-toolbar-side-icon>
-						<router-link to="/">
-							<v-icon>keyboard_arrow_left</v-icon>
-						</router-link>
+					<v-flex xs6 class="text-xs-left">
+						<v-toolbar-title style="cursor:pointer" class="title font-weight-bold">写博客</v-toolbar-title>
 					</v-flex>
-					<v-flex xs4>
-						<v-toolbar-title style="cursor:pointer">写博客</v-toolbar-title>
-					</v-flex>
-					<v-flex xs4>
+					<v-flex xs6 class="text-xs-right text-lg-center">
 						<v-btn depressed color="primary" @click="submit">发布</v-btn>
 					</v-flex>
 				</v-layout>
@@ -56,6 +51,9 @@ export default {
 		}
 	},
 	methods:{
+		drawerChange:function(){
+			this.$emit('drawerChange');
+		},
 		inputBtn:function(){//上传封面的按钮
 			this.$refs.inputBtn.click();
 		},

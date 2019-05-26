@@ -2,20 +2,15 @@
 	<v-layout wrap justify-center>
 		<v-flex xs12>
 			<v-toolbar style="box-shadow:none;border-bottom:1px solid #e0e0e0;">
+				<v-toolbar-side-icon @click="drawerChange" class="hidden-lg-and-up"></v-toolbar-side-icon>
 				<v-layout align-center justify-center row fill-height>
-					<v-flex xs2>
-						<v-toolbar-side-icon @click="drawer=!drawer" class="hidden-md-and-up"></v-toolbar-side-icon>
-						<router-link to="/">
-							<v-icon>keyboard_arrow_left</v-icon>
-						</router-link>
-					</v-flex>
-					<v-flex xs2>
+					<v-flex xs3 class="text-xs-center">
 						<v-icon style="cursor:pointer" @click="getData">refresh</v-icon>
 					</v-flex>
-					<v-flex xs4>
+					<v-flex xs6 class="text-xs-center">
 						<v-toolbar-title style="cursor:pointer">Blog管理</v-toolbar-title>
 					</v-flex>
-					<v-flex xs4>
+					<v-flex xs3 class="text-xs-right text-lg-left">
 						<div ref="delBtn" style="display:none">
 							<v-btn depressed color="primary" @click="dialog=true" >删除</v-btn>
 						</div>
@@ -100,6 +95,9 @@ export default {
 	computed:{
 	},
 	methods:{
+		drawerChange:function(){
+			this.$emit('drawerChange');
+		},
 		click:function(id){//表格一行点击事件
 			this.$router.push({path:`/admin/write/${id}`});
 		},
@@ -117,6 +115,7 @@ export default {
 				if(res.data.code==200){
 					_this.snackText="删除成功";
 					_this.snackColor="success";
+					_this.getBlogNum();
 					_this.getData();
 				}
 				else{
@@ -143,7 +142,7 @@ export default {
 				}
 			})
 		},
-		getBlogNum:function(){//and tagNum
+		getBlogNum:function(){
 			let _this=this;
 			this.axios({
 				method:'get',
