@@ -53,6 +53,11 @@
 import {apiHost} from '../main'
 export default {
 	name:'tagPage',
+	beforeRouteEnter:function(to,from,next){
+		next(vm=>{
+			vm.tagName=to.params.name;
+		})
+	},
 	data(){
 		return{
 			selectTag:[],
@@ -62,7 +67,8 @@ export default {
 			snack:false,
 			snackColor:'error',
 			snackText:'加载出错啦',
-			blogData:[]
+			blogData:[],
+			tagName:-1
 		}
 	},
 	computed:{
@@ -81,11 +87,12 @@ export default {
 				if(res.data.code==200){
 					_this.tagData=res.data.data;
 				}
+				console.log("获取数据");
 			})
 		},
 		selectTagClick:function(index){//标签点击事件==>添加
 			let exist=false;
-			for(let i=0;i<this.selectTag.length;i++){
+			for(let i=0;i<this.selectTag.length;i++){//防止重复
 				exist=false;
 				if(this.selectTag[i].id==this.tagData[index].id){
 					exist=true;break
@@ -128,6 +135,16 @@ export default {
 				console.log(res.data);
 				_this.loading=false;
 			})
+		},
+		async get(name){
+			this.axios.get(apiHost+'/tag/get_all_tag_num').then(res=>{
+				this.tagData=res.data.data;
+				for(let i=0;i<this.tagData.length;i++){
+					if(this.tagData[i].name==name){
+						this.selectTagClick(i);
+					}
+				}
+			});
 		}
 	},
 	created:function(){
@@ -135,6 +152,21 @@ export default {
 	},
 	mounted:function(){
 		this.getData();
+	},
+	watch:{
+		tagName:function(newVal,oldVal){
+			if(newVal!=''&&newVal!=undefined&&newVal!=-1){
+				if(this.tagData.length==0){
+					this.get(newVal);
+				}else{
+					for(let i=0;i<this.tagData.length;i++){
+						if(this.tagData[i].name==name){
+							this.selectTagClick(i);
+						}
+					}
+				}
+			}
+		}
 	}
 }
 </script>

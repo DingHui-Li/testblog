@@ -84,7 +84,7 @@ export default {
 			let _this=this;
 			this.axios({
 				method:'get',
-				url:apiHost+"/visit/getnum"
+				url:apiHost+"/visit/getnum",
 			}).then(function(res){
 				_this.visitNum=res.data.num;
 			})

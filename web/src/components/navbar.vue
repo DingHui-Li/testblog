@@ -43,16 +43,18 @@
         </v-content>
 		<v-dialog v-model="dialog" persistent max-width="600px">
 			<v-card style="padding:40px 40px 20px 40px;border-radius:5px">
-				<v-text-field label="账号" single-line></v-text-field>
-				<v-text-field label="密码" single-line></v-text-field>
+				<v-text-field label="账号" single-line v-model="name"></v-text-field>
+				<v-text-field label="密码" single-line v-model="pw" type="password"></v-text-field>
 				<v-layout justify-center>
 					<v-btn depressed @click="dialog=false">取消</v-btn>
-					<router-link to="/admin" style="text-decoration:none">
-						<v-btn depressed>登录</v-btn>
-					</router-link>
+						<v-btn depressed @click="login">登录</v-btn>
 				</v-layout>
 			</v-card>
 		</v-dialog>
+		<v-snackbar v-model="snack" :timeout="3000" :color="snackColor">
+			{{snackText}}
+			<v-btn flat @click="snack=!snack">Close</v-btn>
+		</v-snackbar>
 	</div>
 </template>
 <script>
@@ -85,6 +87,11 @@ export default {
 					{'name':'blog','to':'/blog','icon':'view_list'},
 					{'name':'标签','to':'/tag','icon':'loyalty'}
 			],
+			name:localStorage["adminName"],
+			pw:'',
+			snack:false,
+			snackColor:'',
+			snackText:''
 		}
 	},
 	methods:{
@@ -92,7 +99,30 @@ export default {
 			this.$emit('changeTheme');
 		},
 		to:function(to){
-			this.$router.push(to);
+			this.$router.replace(to);
+		},
+		login:function(){
+			localStorage["adminName"]=this.name;
+			this.axios({
+				method:'post',
+				url:apiHost+'/admin/login',
+				data:JSON.stringify({'name':this.name,'pw':this.pw}),
+				headers:{
+					'Content-type':'application/json;charset=utf-8'
+				}
+			}).then(res=>{
+				if(res.data.code==200){
+					this.snackColor="success";
+					this.snackText="登录成功";
+					localStorage.setItem("token",res.data.token);
+					this.$router.replace("/admin")
+				}
+				else{
+					this.snackColor="error";
+					this.snackText="登录失败";
+				}
+				this.snack=true;
+			})
 		}
 	}
 }

@@ -1,7 +1,6 @@
 <template>
 	<v-layout align-center >
-			<v-flex xs12 lg6 offset-lg3 style="">
-				<v-container>
+			<v-flex xs12 lg6 offset-lg3 style="margin-top:20px">
 					<v-layout wrap justify-center>
 						<v-flex xs12 v-if="selectTag.length!=0">
 							<v-card color=primary style="border-radius:5px;color:#fff;margin-bottom:20px">
@@ -16,7 +15,7 @@
 								</v-layout>
 							</v-card>
 						</v-flex>
-						<v-flex xs12>
+						<v-flex xs12 style="padding:5px">
 							<v-card style="border-radius:5px;margin-bottom:20px" v-for="blog in filter" :key="'blog'+blog.id" v-ripple @click="click(blog.id)">
 								<v-layout>
 									<v-flex xs4 lg3>
@@ -31,6 +30,7 @@
 												{{tag}}
 											</v-chip>
 										</div>
+										<v-divider></v-divider>
 										<v-card-text class="text-xs-right caption" style="color:#757575;">{{dateFormat(blog.time)}}</v-card-text>
 									</v-flex>
 								</v-layout>
@@ -40,7 +40,6 @@
 							<v-btn @click="getBlogData" depressed class=" caption font-weight-bold">{{loadText}}</v-btn>
 						</v-flex>
 					</v-layout>
-				</v-container>
 			</v-flex>
 	</v-layout>
 </template>

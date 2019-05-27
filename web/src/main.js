@@ -12,9 +12,15 @@ Vue.use(vuetify,{
   iconfont: 'md'
 })
 Vue.use(VueAxios,axios);
+axios.interceptors.request.use(
+  config=>{
+    config.headers['token']=localStorage['token'];
+    return config;
+  }
+)
 // Vue.use(CKEditor);
 Vue.config.productionTip = false
-// export const apiHost="http://localhost:8888";
+//export const apiHost="http://localhost:8888";
 export const apiHost="http://lidh.top:8084/blog";
 //--------------------------路由配置----------------
 const navbar=() =>import('./components/navbar')
@@ -39,8 +45,9 @@ const routes=[
         {path:'home',component:homePage},
         {path:'about',component:aboutPage},
         {path:'blog',component:blogPage},
-        {path:'/blog/:id',component:contentPage},
-        {path:'tag',component:tagPage}
+        {path:'blog/:id',component:contentPage},
+        {path:'tag',component:tagPage},
+        {path:'tag/:name',component:tagPage}
     ]},
     {path:'/admin',component:navbar2,children:[
         {path:'',redirect:'overview'},

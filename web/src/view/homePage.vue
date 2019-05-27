@@ -7,11 +7,10 @@
 		</v-parallax>
 		<v-layout align-center justify-center>
 			<v-flex xs12 lg8>
-					<v-container>
 						<v-layout wrap>
-							<v-flex xs12 class="body-2 font-weight-bold" style="color:#757575;padding:0 10px">最近更新</v-flex>
+							<v-flex xs12 class="body-2 font-weight-bold" style="color:#757575;padding:0 15px;margin-top:20px">最近更新</v-flex>
 							<v-flex xs12 class="display-2 font-weight-black" style="margin:10px 0;padding:0 10px">blog</v-flex>
-							<v-flex xs12 sm6 md5 lg4 style="margin:10px 0;padding:0 10px" v-for="blog in blogData" :key="'blog'+blog.id">
+							<v-flex xs12 sm6 md5 lg4 style="margin:10px 0;padding:0 5px" v-for="blog in blogData" :key="'blog'+blog.id">
 								<v-card style="border-radius:5px" hover v-ripple @click="click(blog.id)">
 									<v-card-title class=" text-no-wrap text-truncate">{{blog.title}}</v-card-title>
 									<v-card-text class="text-xs-right caption text-no-wrap text-truncate" style="color:#757575">{{dateFormat(blog.time)}}</v-card-text>
@@ -29,12 +28,14 @@
 							<v-flex xs12 style="margin:20px 0">
 								<v-divider></v-divider>
 							</v-flex>
+							<v-flex xs12 class="body-2 font-weight-bold" style="color:#757575;padding:0 15px;margin-top:20px">最新评论</v-flex>
 							<v-flex xs12 class="display-2 font-weight-black" style="margin:10px 0;padding:0 10px">评论</v-flex>
-							<v-flex xs12 sm6 md5 lg4 style="margin:10px 0;padding:0 10px" v-for="comment in commentData" :key="'comment'+comment.id">
+							<v-flex xs12 sm6 md5 lg4 style="margin:10px 0;padding:0 5px" v-for="comment in commentData" :key="'comment'+comment.id">
 								<v-card style="border-radius:5px" hover v-ripple @click="click(comment.blogid)">
 									<v-card-title class=" text-no-wrap text-truncate subheading font-weight-bold" >{{comment.name}}</v-card-title>
-									<v-card-text class="text-no-wrap text-truncate" v-html="comment.comment"></v-card-text>
-									<v-layout wrap>
+									<v-card-text class="text-no-wrap text-truncate" v-html="comment.comment" style="padding:0 15px"></v-card-text>
+									<v-divider></v-divider>
+									<v-layout wrap >
 										<v-flex xs6>
 											<v-card-text class="text-xs-left caption text-no-wrap text-truncate" style="color:#757575">来自：{{comment.title}}</v-card-text>
 										</v-flex>
@@ -45,7 +46,6 @@
 								</v-card>
 							</v-flex>
 						</v-layout>
-					</v-container>
 			</v-flex>
 		</v-layout>
 		<v-footer color="primary lighten-1" style="margin-top:100px">

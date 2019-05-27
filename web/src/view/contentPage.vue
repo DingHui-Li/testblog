@@ -7,7 +7,7 @@
 				</v-layout>
 			</v-parallax>
 		</v-flex>
-		<v-flex xs12 md10 lg8 xl6 offset-md1 offset-lg2 offset-xl3 style="padding:15px;">
+		<v-flex xs12 md10 lg8 xl6 offset-md1 offset-lg2 offset-xl3 style="padding:5px;">
 			<v-card style="border-radius:5px;padding:0px">
 				<div class="title font-weight-black text-xs-center" style="border-bottom:1px solid #e0e0e0;padding:20px">{{contentData.title}}</div>
 				<v-card-text class="text-xs-right caption">更新于：{{dateFormat(contentData.time)}}</v-card-text>
@@ -20,18 +20,20 @@
 		</v-flex>
 		<!-- -------------------------标签---------------- -->
 		<v-flex xs12 md10 lg8 xl6 offset-md1 offset-lg2 offset-xl3 v-if="contentData.tag.length!=0" style="padding:10px">
-			<v-chip class="caption font-weight-bold" color="primary" text-color="white" v-for="(chip,index) in contentData.tag.split(',')" :key="index">{{chip}}</v-chip>
+			<v-chip class="caption font-weight-bold" color="primary" text-color="white" 
+				v-for="(chip,index) in contentData.tag.split(',')" :key="index" @click="chipClick(chip)">
+				{{chip}}
+			</v-chip>
 		</v-flex>
 		<!-- ----------------------------评论区-------------------- -->
-		<v-flex xs12 md10 lg8 xl6 offset-md1 offset-lg2 offset-xl3 style="padding:15px;">
+		<v-flex xs12 md10 lg8 xl6 offset-md1 offset-lg2 offset-xl3 style="padding:5px;">
 			<comment :id="id"/> 
 		</v-flex>
-		<v-flex xs12 md10 lg8 xl6 offset-md1 offset-lg2 offset-xl3 style="padding:15px;">
+		<v-flex xs12 md10 lg8 xl6 offset-md1 offset-lg2 offset-xl3 style="padding:0px;">
 			<v-card v-for="comment in comments" :key="'comment'+comment.id">
-				<v-card-title class="subheading font-weight-bold"><v-icon style="margin-right:5px">face</v-icon> {{comment.name}}</v-card-title>
-				<v-card-text v-html="comment.comment" style=" word-wrap:break-word; word-break:break-all;">
-				</v-card-text>
-				<v-card-text>
+				<v-card-title class="subheading font-weight-bold;" style="padding:5px"><v-icon style="margin-right:5px;">face</v-icon> {{comment.name}}</v-card-title>
+				<v-card-text v-html="comment.comment" style=" word-wrap:break-word; word-break:break-all;padding 0 15px;padding:0 10px 0 35px"></v-card-text>
+				<v-card-text style="padding:0;padding:0 10px 5px 10px;">
 					<div class="text-xs-right caption">{{dateFormat(comment.time)}}</div>
 				</v-card-text>
 				<v-divider></v-divider>
@@ -63,7 +65,8 @@ export default {
 	},
 	computed:{
 		coverPath:function(){
-			return apiHost+this.contentData.cover;
+			if(this.contentData.cover!=undefined)
+				return apiHost+this.contentData.cover;
 		},
 	},
 	methods:{
@@ -90,13 +93,15 @@ export default {
 						_this.comments.push(res.data.data[i]);
 					}
 				}
-				console.log(res.data);
 			})
 		},
 		dateFormat:function(date){
 			let d=new Date(date);
 			return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getUTCDate()+" "+d.getUTCHours()+":"+d.getMinutes()+":"+d.getSeconds();
 		},
+		chipClick:function(name){
+			this.$router.push({path:`/tag/${name}`});
+		}
 	},
 	created:function(){
 		this.getContent();

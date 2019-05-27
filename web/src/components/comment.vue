@@ -35,7 +35,7 @@ export default {
 			snackColor:'',
 			snackText:'',
 
-			nickName:'',
+			nickName:localStorage['nickName'],
 			editor:null
 		}
 	},
@@ -51,6 +51,7 @@ export default {
 			this.editor=editor;
 		},
 		submit:function(){
+			localStorage['nickName']=this.nickName;
 			let text=this.editor.txt.html().trim();
 			let name=this.nickName.trim();
 			let _this=this;
