@@ -1,6 +1,6 @@
 <template>
 	<v-layout align-center >
-			<v-flex xs12 lg6 offset-lg3 style="margin-top:20px">
+			<v-flex xs12 md8 lg6 offset-md2 offset-lg3 style="margin-top:20px">
 					<v-layout wrap justify-center>
 						<v-flex xs12 v-if="selectTag.length!=0">
 							<v-card color=primary style="border-radius:5px;color:#fff;margin-bottom:20px">
@@ -16,14 +16,15 @@
 							</v-card>
 						</v-flex>
 						<v-flex xs12 style="padding:5px">
-							<v-card style="border-radius:5px;margin-bottom:20px" v-for="blog in filter" :key="'blog'+blog.id" v-ripple @click="click(blog.id)">
-								<v-layout>
-									<v-flex xs4 lg3>
-										<v-img :src="coverPath(blog.cover)" style="border-radius:5px 0 0 5px;height:100%;width:100%"></v-img>
+							<v-card style="border-radius:5px;margin-bottom:20px;animation-duration:.5s;" :height='imgHeight()'
+									v-for="blog in filter" :key="'blog'+blog.id" v-ripple @click="click(blog.id)" class="animated slideInDown">
+								<v-layout style="height:100%">
+									<v-flex xs4 lg3 style="height:100%;">
+										<v-img :src="coverPath(blog.cover)" style="border-radius:5px 0 0 5px;width:100%;height:100%"></v-img>
 									</v-flex>
 									<v-flex xs8 lg9 class="text-no-wrap text-truncate">
 										<v-card-title class="title font-weight-black">{{blog.title}}</v-card-title>
-										<v-card-text class="subheading hidden-xs-only">{{blog.desc}}</v-card-text>
+										<v-card-text class="subheading hidden-xs-only" v-html="blog.desc"></v-card-text>
 										<div v-if="blog.tag.length!=0">
 											<v-chip color="primary" text-color="white" class="caption"
 												style="margin-left:10px;z-index:1;" v-for="tag in blog.tag.split(',')" :key="tag+blog.id" @click='tagClick(tag,$event)'>
@@ -97,8 +98,11 @@ export default {
 					if(res.data.data[i].tag==null)res.data.data[i].tag="";
 					_this.blogData.push(res.data.data[i]);
 				}
-				
 			})
+		},
+		imgHeight:function(){
+			if(document.body.clientWidth<500) return 150;
+			else return 200;
 		},
 	},
 	computed:{
@@ -120,6 +124,9 @@ export default {
 	},
 	mounted:function(){
 		this.getBlogData();
+	},
+	updated:function(){
+		//this.imgHeight();
 	}
 }
 </script>

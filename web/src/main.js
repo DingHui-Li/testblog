@@ -4,13 +4,14 @@ import App from './App.vue'
 import vuetify from 'vuetify'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-// import CKEditor  from '@ckeditor/ckeditor5-vue'
+import animated from 'animate.css'
 
 import 'vuetify/dist/vuetify.min.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 Vue.use(vuetify,{
   iconfont: 'md'
 })
+Vue.use(animated);
 Vue.use(VueAxios,axios);
 axios.interceptors.request.use(
   config=>{
@@ -18,7 +19,6 @@ axios.interceptors.request.use(
     return config;
   }
 )
-// Vue.use(CKEditor);
 Vue.config.productionTip = false
 //export const apiHost="http://localhost:8888";
 export const apiHost="http://lidh.top:8084/blog";
@@ -62,6 +62,26 @@ const routes=[
 ]
 const router=new VueRouter({
   routes
+})
+router.beforeEach((to,from,next)=>{
+  if(to.fullPath.indexOf('admin')!=-1){//判断是否需要验证登录
+    if(localStorage['token']!=undefined&&localStorage['token']!='undefined'){//判断是否登录过
+        axios({
+          method:'get',
+          url:apiHost+'/admin/islogin?token='+localStorage['token'],
+        }).then(res=>{
+          if(res.data.code==-1){//判断登录是否过期
+            alert("登录过期，请重新登录")
+            router.replace('/')
+          }else if(res.data.code=200){
+            next();
+          }
+        })
+    }else{
+      alert("请登录");
+      router.replace('/')
+    }
+  }else next();
 })
 //---------------------------------------------------------
 Vue.use(VueRouter);

@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<v-toolbar>
+		<v-toolbar class="animated slideInDown">
 			<v-layout align-center justify-center row >
 				<v-flex xs4 md1>
 					<v-toolbar-side-icon @click="drawer=!drawer" class="hidden-md-and-up"></v-toolbar-side-icon>
@@ -13,7 +13,7 @@
 					<v-tab v-for="item in catalog" :key="'s'+item.name" :to="item.to"><v-icon>{{item.icon}}</v-icon>{{item.name}} </v-tab>
 					</v-tabs>
 				</v-flex>
-				<v-flex xs2 class="text-xs-center"><v-icon @click="dialog=true">person</v-icon></v-flex>
+				<v-flex xs2 class="text-xs-center"><v-icon @click="islogin">person</v-icon></v-flex>
 				<v-flex xs2 class="text-xs-right text-md-center text-lg-left">
 					<v-icon @click="changeTheme">brightness_4</v-icon>
 				</v-flex>
@@ -36,7 +36,7 @@
 			<v-layout>
 				<v-flex xs12>
 					<keep-alive exclude="contentPage">
-						<router-view> </router-view>
+						<router-view class="animated fadeIn"> </router-view>
 					</keep-alive>
 				</v-flex>
 			</v-layout>
@@ -100,6 +100,22 @@ export default {
 		},
 		to:function(to){
 			this.$router.replace(to);
+		},
+		islogin:function(){
+			if(localStorage['token']!=undefined&&localStorage['token']!='undefined'){
+				this.axios({
+				method:'get',
+				url:apiHost+'/admin/islogin?token='+localStorage['token'],
+				}).then(res=>{
+					if(res.data.code==-1){//判断登录是否过期
+						this.dialog=true;
+					}else if(res.data.code=200){
+						this.$router.replace('/admin');
+					}
+				})
+			}else{
+				this.dialog=true;
+			}
 		},
 		login:function(){
 			localStorage["adminName"]=this.name;

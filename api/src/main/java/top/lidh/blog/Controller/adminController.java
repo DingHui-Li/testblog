@@ -1,10 +1,7 @@
 package top.lidh.blog.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import top.lidh.blog.Dao.adminDao;
 import top.lidh.blog.Entity.admin;
 import top.lidh.blog.Util.jwtUtil;
@@ -34,6 +31,19 @@ public class adminController {
             result.put("msg",e.getMessage());
             e.printStackTrace();
         }
+        return result;
+    }
+
+    @GetMapping("/islogin")
+    public Map<String,Object> isLogin(String token){
+        Map<String,Object> result =new HashMap<>();
+        if(token!=null&&token!="") {
+            jwtUtil jwt = new jwtUtil();
+            boolean re = jwt.verify(token);
+            if (re) {
+                result.put("code", "200");
+            } else result.put("code", "-1");
+        }else result.put("code", "-1");
         return result;
     }
 }

@@ -5,11 +5,13 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "analyze": "cross-env NODE_ENV=production npm_config_report=true npm run build"
   },
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^12.1.0",
     "@ckeditor/ckeditor5-vue": "^1.0.0-beta.2",
+    "animate.css": "^3.7.0",
     "axios": "^0.18.0",
     "core-js": "^2.6.5",
     "echarts": "^4.2.1",
@@ -25,6 +27,8 @@
     "@vue/cli-plugin-eslint": "^3.7.0",
     "@vue/cli-service": "^3.7.0",
     "babel-eslint": "^10.0.1",
+    "compression-webpack-plugin": "^2.0.0",
+    "cross-env": "^5.2.0",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "material-design-icons-iconfont": "^5.0.1",

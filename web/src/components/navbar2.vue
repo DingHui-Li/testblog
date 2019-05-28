@@ -16,6 +16,10 @@
 							<v-list-tile-avatar><v-icon large>brightness_4</v-icon></v-list-tile-avatar>
 							<v-list-tile-content class="subheading font-weight-black">主题</v-list-tile-content>
 					</v-list-tile>
+					<v-list-tile @click="back"> 
+							<v-list-tile-avatar><v-icon large>keyboard_return</v-icon></v-list-tile-avatar>
+							<v-list-tile-content class="subheading font-weight-black">返回</v-list-tile-content>
+					</v-list-tile>
 					<v-list-tile @click="dialog=true"> 
 							<v-list-tile-avatar><v-icon large>close</v-icon></v-list-tile-avatar>
 							<v-list-tile-content class="subheading font-weight-black">退出</v-list-tile-content>
@@ -38,7 +42,11 @@
 							<v-list-tile-avatar><v-icon large>brightness_4</v-icon></v-list-tile-avatar>
 							<v-list-tile-content class="subheading font-weight-black">主题</v-list-tile-content>
 					</v-list-tile>
-						<v-list-tile @click="dialog=true"> 
+					<v-list-tile @click="back"> 
+							<v-list-tile-avatar><v-icon large>keyboard_return</v-icon></v-list-tile-avatar>
+							<v-list-tile-content class="subheading font-weight-black">返回</v-list-tile-content>
+					</v-list-tile>
+					<v-list-tile @click="dialog=true"> 
 							<v-list-tile-avatar><v-icon large>close</v-icon></v-list-tile-avatar>
 							<v-list-tile-content class="subheading font-weight-black">退出</v-list-tile-content>
 					</v-list-tile>
@@ -84,6 +92,9 @@ export default {
 		}
 	},
 	methods:{
+		back:function(){
+			this.$router.replace('/');
+		},
 		to:function(to,name){
 			this.title=name;
 			this.$router.push(to);
@@ -92,6 +103,7 @@ export default {
 			this.drawer=!this.drawer;
 		},
 		signout:function(){
+			localStorage['token']=undefined;
 			this.$router.replace('/')
 		},
 		changeTheme:function(){

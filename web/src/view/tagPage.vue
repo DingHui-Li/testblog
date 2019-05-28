@@ -1,12 +1,13 @@
 <template>
-	<v-layout wrap align-center justify-center>
+	<v-layout wrap align-center justify-center >
 		<v-container>
 			<v-flex xs12 md10 lg8 xl6 offset-md1 offset-lg2 offset-xl3 style="padding:0;margin-top:100px">
-				<v-chip v-for="(tag,index) in tagData" :key="'tag'+tag.id" :color="chipColor[Math.round(Math.random() * 5)]" text-color="white" @click="selectTagClick(index)">
+				<v-chip v-for="(tag,index) in tagData" :key="'tag'+tag.id" 
+						:color="chipColor[Math.round(Math.random() * 5)]" text-color="white" @click="selectTagClick(index)"  class="animated zoomIn" style="animation-duration:1s">
 					<span class="subheading">{{tag.name}}</span>: <span class="subheading" style="margin-left:5px">{{tag.num}}</span>
 				</v-chip>
 			</v-flex>
-			<v-flex xs12 md10 lg8 xl6 offset-md1 offset-lg2 offset-xl3 style="margin-top:20px" >
+			<v-flex xs12 md10 lg8 xl6 offset-md1 offset-lg2 offset-xl3 style="margin-top:20px;animation-duration:1s"  class="animated fadeIn">
 				<v-card color=primary style="border-radius:5px;color:#fff;margin-bottom:20px">
 					<v-layout wrap>
 						<v-card-title>已选标签</v-card-title>
@@ -19,8 +20,8 @@
 					</v-layout>
 				</v-card>
 			</v-flex>
-			<v-flex xs12 md10 lg8 xl6 offset-md1 offset-lg2 offset-xl3 style="padding:0;margin-top:100px">
-				<v-card v-for="blog in blogData" :key="'blog'+blog.id" v-ripple hover @click="toBlog(blog.id)">
+			<v-flex xs12 md10 lg8 xl6 offset-md1 offset-lg2 offset-xl3 style="padding:0;margin-top:100px;animation-duration:1s"  class="animated fadeIn">
+				<v-card v-for="blog in blogData" :key="'blog'+blog.id" v-ripple hover @click="toBlog(blog.id)" class="animated slideInDown" style="animation-duration:.5s">
 					<v-card-title class="subheading font-weight-black">{{blog.title}}</v-card-title>
 					<v-card-text>{{blog.desc}}</v-card-text>
 					<v-card-text class="text-xs-right caption">
@@ -160,7 +161,7 @@ export default {
 					this.get(newVal);
 				}else{
 					for(let i=0;i<this.tagData.length;i++){
-						if(this.tagData[i].name==name){
+						if(this.tagData[i].name==newVal){
 							this.selectTagClick(i);
 						}
 					}
