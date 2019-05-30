@@ -27,7 +27,7 @@
 				</v-list>
 			</v-navigation-drawer>
 		</v-flex>
-		<v-navigation-drawer style="height:100vh;" absolute v-model="drawer">
+		<v-navigation-drawer style="height:100vh;" fixed v-model="drawer">
 				<v-list>
 					<v-list-tile style="height:100px;">
 							<v-list-tile-avatar><v-icon large>album</v-icon></v-list-tile-avatar>
@@ -80,14 +80,15 @@ export default {
 	data(){
 		return{
 			dialog:false,
-			drawer:true,
+			drawer:false,
 			title:'网站后台管理',
 			catalog:[
 				{'name':'网站概览','icon':'equalizer','to':'/admin/overview'},
 				{'name':'写博客','icon':'font_download','to':'/admin/write'},
 				{'name':'博客管理','icon':'vertical_split','to':'/admin/manage'},
 				{'name':'标签管理','icon':'turned_in','to':'/admin/tag'},
-				{'name':'评论管理','icon':'forum','to':'/admin/comment'}
+				{'name':'评论管理','icon':'forum','to':'/admin/comment'},
+				{'name':'网站首页设置','icon':'web_asset','to':'/admin/setting'}
 			]
 		}
 	},

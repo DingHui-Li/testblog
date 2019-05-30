@@ -33,7 +33,7 @@
 								<v-icon size="60" color="white">group_add</v-icon>
 							</v-flex>
 							<v-flex lg11 class="text-xs-right text-lg-left">
-								<div class="title" style="color:white">访问人数</div>
+								<div class="title" style="color:white">访问数</div>
 								<div class="title" style="color:white;margin-top:20px">{{visitNum}}</div>
 							</v-flex>
 						</v-layout>	

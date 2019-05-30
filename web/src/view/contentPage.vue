@@ -1,7 +1,7 @@
 <template>
 	<v-layout wrap>
 		<v-flex xs12 class="text-xs-center">
-			<v-parallax  :src="coverPath" class="hidden-md-and-down">
+			<v-parallax  :src="coverPath" class="hidden-md-and-down animated fadeInDown">
 				<v-layout align-center justify-center>
 					<div class="display-2 font-weight-thin text-uppercase font-weight-regular">{{contentData.title}}</div>
 				</v-layout>
@@ -29,14 +29,15 @@
 		<v-flex xs12 md10 lg8 xl6 offset-md1 offset-lg2 offset-xl3 style="padding:5px;"  class="animated slideInDown">
 			<comment :id="id"/> 
 		</v-flex>
-		<v-flex xs12 md10 lg8 xl6 offset-md1 offset-lg2 offset-xl3 style="padding:0px;">
-			<v-card v-for="comment in comments" :key="'comment'+comment.id"  class="animated slideInDown">
-				<v-card-title class="subheading font-weight-bold;" style="padding:5px"><v-icon style="margin-right:5px;">face</v-icon> {{comment.name}}</v-card-title>
-				<v-card-text v-html="comment.comment" style=" word-wrap:break-word; word-break:break-all;padding 0 15px;padding:0 10px 0 35px"></v-card-text>
+		<v-flex xs12 md10 lg8 xl6 offset-md1 offset-lg2 offset-xl3 style="">
+			<v-card v-for="comment in comments" :key="'comment'+comment.id"  class="animated slideInDown" 
+					style="border-radius:5px;color:#fff;float:left;margin:15px" :color="chipColor[Math.round(Math.random() * 5)]" min-width="200px" max-width='100%'>
+				<v-card-title class="subheading font-weight-bold;" style="padding:10px"><v-icon style="margin-right:5px;" color="white">face</v-icon> {{comment.name}}</v-card-title>
+				<v-divider></v-divider>
+				<v-card-text v-html="comment.comment" style=" word-wrap:break-word; word-break:break-all;padding 0 15px;"></v-card-text>
 				<v-card-text style="padding:0;padding:0 10px 5px 10px;">
 					<div class="text-xs-right caption">{{dateFormat(comment.time)}}</div>
 				</v-card-text>
-				<v-divider></v-divider>
 			</v-card>
 		</v-flex>
 		<v-flex xs12 class="text-xs-center"><v-btn @click="getComment" depressed class="caption font-weight-bold">{{loadText}}</v-btn></v-flex>
@@ -56,6 +57,7 @@ export default {
 			// editor:ClassicEditor,
 			id:this.$route.params.id,
 			contentData:{'tag':''},
+			chipColor:['green', 'light-green','orange','deep-orange','blue-grey','primary'],
 			// editorConfig:{
 			// 	toolbar: []
 			// },

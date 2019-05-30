@@ -1,12 +1,12 @@
 <template>
 	<div>
-		<v-toolbar class="animated slideInDown">
+		<v-toolbar class="animated fadeInDown" id="nav" style="animation-duration:.5s;" fixed >
 			<v-layout align-center justify-center row >
 				<v-flex xs4 md1>
 					<v-toolbar-side-icon @click="drawer=!drawer" class="hidden-md-and-up"></v-toolbar-side-icon>
 				</v-flex>
 				<v-flex xs6 md4 lg2>
-					<v-toolbar-title style="cursor:pointer">个人博客</v-toolbar-title>
+					<v-toolbar-title style="cursor:pointer">{{websiteData.name}}</v-toolbar-title>
 				</v-flex>
 				<v-flex md4 class="hidden-sm-and-down" >
 					<v-tabs grow color=rgba(0,0,0,0)>
@@ -19,7 +19,7 @@
 				</v-flex>
 			</v-layout>
 		</v-toolbar>
-		<v-navigation-drawer  temporary  v-model="drawer" absolute>
+		<v-navigation-drawer  temporary  v-model="drawer" fixed height="100vh">
 			<v-img :src="require('../assets/bg.jpg')" style="width:100%;height:auto"></v-img>
 			<v-list>
 				<v-list-tile v-for="item in catalog" :key="item.name" @click="to(item.to)" v-ripple>
@@ -34,9 +34,9 @@
 		</v-navigation-drawer>
 		<v-content>
 			<v-layout>
-				<v-flex xs12>
+				<v-flex xs12 style="margin-top:65px;margin-bottom:50px">
 					<keep-alive exclude="contentPage">
-						<router-view class="animated fadeIn"> </router-view>
+						<router-view class="animated fadeIn" :websiteTitle="websiteData.title" :homeCover="websiteData.cover"> </router-view>
 					</keep-alive>
 				</v-flex>
 			</v-layout>
@@ -91,7 +91,13 @@ export default {
 			pw:'',
 			snack:false,
 			snackColor:'',
-			snackText:''
+			snackText:'',
+			top:0,//距离顶部距离
+			websiteData:{
+				name:'',
+				title:'',
+				cover:''
+			}
 		}
 	},
 	methods:{
@@ -100,6 +106,16 @@ export default {
 		},
 		to:function(to){
 			this.$router.replace(to);
+		},
+		getData:function(){
+			this.axios({
+				method:'get',
+				url:apiHost+'/admin/get'
+			}).then(res=>{
+				if(res.data.code==200){
+					this.websiteData=res.data.data;
+				}
+			})
 		},
 		islogin:function(){
 			if(localStorage['token']!=undefined&&localStorage['token']!='undefined'){
@@ -139,7 +155,27 @@ export default {
 				}
 				this.snack=true;
 			})
-		}
+		},
+		scrollFunc:function() {  
+			let newTop = document.scrollingElement.scrollTop;
+			if(nav!=undefined){
+				if (this.top-newTop>0) {              
+					nav.classList.add("slideInDown")
+					nav.classList.remove("slideOutUp")
+				}  
+				else { //当滑轮向下滚动时  
+					nav.classList.add("slideOutUp")
+					nav.classList.remove("slideDownUp")
+				}  
+				this.top=newTop;
+			}
+		} 
+	},
+	created:function(){
+		this.getData();
+	},
+	mounted:function(){
+		window.addEventListener('scroll',this.scrollFunc,true);
 	}
 }
 </script>

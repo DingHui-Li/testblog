@@ -17,7 +17,7 @@
 						</v-flex>
 						<v-flex xs12 style="padding:5px">
 							<v-card style="border-radius:5px;margin-bottom:20px;animation-duration:.5s;" :height='imgHeight()'
-									v-for="blog in filter" :key="'blog'+blog.id" v-ripple @click="click(blog.id)" class="animated slideInDown">
+									v-for="blog in filter" :key="'blog'+blog.id" v-ripple @click="click(blog.id)" class="animated fadeInDown">
 								<v-layout style="height:100%">
 									<v-flex xs4 lg3 style="height:100%;">
 										<v-img :src="coverPath(blog.cover)" style="border-radius:5px 0 0 5px;width:100%;height:100%"></v-img>

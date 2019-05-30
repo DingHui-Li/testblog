@@ -20,6 +20,7 @@ public class interceptorConfig implements WebMvcConfigurer {
         includePath.add("/tag/update");
         includePath.add("/tag/delete");
         includePath.add("/visit/getdata");
+        includePath.add("/admin/set");
         registry.addInterceptor(new interceptor()).addPathPatterns(includePath);
     }
 }

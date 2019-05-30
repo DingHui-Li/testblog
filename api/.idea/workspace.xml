@@ -12,11 +12,18 @@
     <list default="true" id="e11fdfa1-f1e0-4318-ab66-62d7251b8b30" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/top/lidh/blog/Controller/adminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/lidh/blog/Controller/adminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/lidh/blog/Controller/blogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/lidh/blog/Controller/blogController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/top/lidh/blog/Util/interceptorConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/lidh/blog/Util/interceptorConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/lidh/blog/Util/jwtUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/lidh/blog/Util/jwtUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../web/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../web/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../web/src/components/navbar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../web/src/components/navbar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../web/src/components/navbar2.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../web/src/components/navbar2.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../web/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/../web/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../web/src/view/aboutPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../web/src/view/aboutPage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../web/src/view/admin/overview.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../web/src/view/admin/overview.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../web/src/view/admin/write.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../web/src/view/admin/write.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../web/src/view/blogPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../web/src/view/blogPage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../web/src/view/contentPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../web/src/view/contentPage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../web/src/view/homePage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../web/src/view/homePage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../web/src/view/tagPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../web/src/view/tagPage.vue" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -32,27 +39,12 @@
     </SUITE>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/top/lidh/blog/Util/interceptor.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
-              <caret line="15" column="48" lean-forward="true" selection-start-line="15" selection-start-column="48" selection-end-line="15" selection-end-column="48" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
+    <leaf>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/top/lidh/blog/Controller/adminController.java">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/websiteDao.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="430">
-              <caret line="38" column="51" selection-start-line="38" selection-start-column="51" selection-end-line="38" selection-end-column="51" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="234">
+              <caret line="9" column="24" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -90,7 +82,6 @@
         <option value="$PROJECT_DIR$/src/main/java/top/lidh/blog/Dao/blogDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/top/lidh/blog/Dao/tagDao.java" />
         <option value="$PROJECT_DIR$/src/main/resources/mapper/tagDao.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/top/lidh/blog/Controller/blogController.java" />
         <option value="$PROJECT_DIR$/src/main/resources/mapper/blogDao.xml" />
         <option value="$PROJECT_DIR$/src/main/java/top/lidh/blog/Dao/commentDao.java" />
         <option value="$PROJECT_DIR$/src/main/resources/mapper/commentDao.xml" />
@@ -103,11 +94,16 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/resources/mapper/adminDao.xml" />
         <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
-        <option value="$PROJECT_DIR$/src/main/java/top/lidh/blog/Util/interceptorConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/top/lidh/blog/Util/interceptor.java" />
         <option value="$PROJECT_DIR$/src/main/java/top/lidh/blog/Dao/adminDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/top/lidh/blog/Util/jwtUtil.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/mapper/websiteDao" />
+        <option value="$PROJECT_DIR$/src/main/java/top/lidh/blog/Controller/blogController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/top/lidh/blog/Util/interceptorConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/java/top/lidh/blog/Dao/websiteDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/top/lidh/blog/Entity/website.java" />
         <option value="$PROJECT_DIR$/src/main/java/top/lidh/blog/Controller/adminController.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/mapper/websiteDao.xml" />
       </list>
     </option>
   </component>
@@ -148,8 +144,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -199,7 +195,7 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="blog" type="462c0819:PsiDirectoryNode" />
-              <item name="Util" type="462c0819:PsiDirectoryNode" />
+              <item name="Dao" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="blog" type="b2602c69:ProjectViewProjectNode" />
@@ -207,6 +203,14 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="blog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="mapper" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="blog" type="b2602c69:ProjectViewProjectNode" />
@@ -234,7 +238,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559031659533" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559217250775" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../seckill" />
@@ -389,6 +393,8 @@
       <workItem from="1558953016476" duration="9450000" />
       <workItem from="1558965842529" duration="1266000" />
       <workItem from="1559010963364" duration="5646000" />
+      <workItem from="1559208302497" duration="111000" />
+      <workItem from="1559209566258" duration="3973000" />
     </task>
     <servers />
   </component>
@@ -425,7 +431,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="93671000" />
+    <option name="totallyTimeSpent" value="97755000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -439,7 +445,7 @@
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17217484" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17537314" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -449,7 +455,7 @@
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.5770065" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.2624729" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39696312" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -465,7 +471,7 @@
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Maven" order="3" visible="true" weight="0.1988273" />
+      <window_info active="true" anchor="right" id="Maven" order="3" visible="true" weight="0.1988273" />
       <window_info anchor="right" id="Palette" order="4" />
       <window_info anchor="right" id="Coverage" order="5" side_tool="true" weight="0.32995737" />
       <window_info anchor="right" id="Capture Analysis" order="6" />
@@ -638,13 +644,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/visitorDao.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="14" column="9" selection-start-line="14" selection-start-column="9" selection-end-line="14" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/top/lidh/blog/Util/corsConfig.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
@@ -703,23 +702,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/blogDao.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="610">
-          <caret line="41" column="42" selection-start-line="41" selection-start-column="42" selection-end-line="41" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/top/lidh/blog/Controller/blogController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-794">
-          <caret line="64" column="20" lean-forward="true" selection-start-line="64" selection-start-column="19" selection-end-line="64" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/top/lidh/blog/Dao/blogDao.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="326">
@@ -767,30 +749,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/top/lidh/blog/Util/interceptorConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="22" column="80" selection-start-line="22" selection-start-column="80" selection-end-line="22" selection-end-column="80" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/top/lidh/blog/Dao/adminDao.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
           <caret line="9" column="24" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/top/lidh/blog/Util/interceptor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="15" column="48" lean-forward="true" selection-start-line="15" selection-start-column="48" selection-end-line="15" selection-end-column="48" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -807,13 +769,95 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/top/lidh/blog/Controller/adminController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/top/lidh/blog/Util/interceptor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="430">
-          <caret line="38" column="51" selection-start-line="38" selection-start-column="51" selection-end-line="38" selection-end-column="51" />
+        <state relative-caret-position="390">
+          <caret line="15" column="48" selection-start-line="15" selection-start-column="48" selection-end-line="15" selection-end-column="48" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/visitorDao.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="3" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/top/lidh/blog/Controller/blogController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="26" column="22" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/top/lidh/blog/Util/interceptorConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="451">
+          <caret line="22" column="38" lean-forward="true" selection-start-line="22" selection-start-column="38" selection-end-line="22" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/top/lidh/blog/Entity/website.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6">
+          <caret line="21" column="5" lean-forward="true" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
+          <folding>
+            <element signature="e#160#161#0" expanded="true" />
+            <element signature="e#187#188#0" expanded="true" />
+            <element signature="e#227#228#0" expanded="true" />
+            <element signature="e#259#260#0" expanded="true" />
+            <element signature="e#291#292#0" expanded="true" />
+            <element signature="e#319#320#0" expanded="true" />
+            <element signature="e#361#362#0" expanded="true" />
+            <element signature="e#395#396#0" expanded="true" />
+            <element signature="e#427#428#0" expanded="true" />
+            <element signature="e#455#456#0" expanded="true" />
+            <element signature="e#497#498#0" expanded="true" />
+            <element signature="e#531#532#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/top/lidh/blog/Dao/websiteDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="9" column="21" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/blogDao.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="446">
+          <caret line="41" column="42" selection-start-line="41" selection-start-column="42" selection-end-line="41" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/top/lidh/blog/Controller/adminController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="68" selection-start-line="68" selection-end-line="68" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/websiteDao.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="9" column="24" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
         </state>
       </provider>
     </entry>

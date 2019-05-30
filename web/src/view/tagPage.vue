@@ -3,7 +3,7 @@
 		<v-container>
 			<v-flex xs12 md10 lg8 xl6 offset-md1 offset-lg2 offset-xl3 style="padding:0;margin-top:100px">
 				<v-chip v-for="(tag,index) in tagData" :key="'tag'+tag.id" 
-						:color="chipColor[Math.round(Math.random() * 5)]" text-color="white" @click="selectTagClick(index)"  class="animated zoomIn" style="animation-duration:1s">
+						:color="chipColor[Math.round(Math.random() * 5)]" text-color="white" @click="selectTagClick(index)"  class="animated zoomIn" style="animation-duration:0.5s">
 					<span class="subheading">{{tag.name}}</span>: <span class="subheading" style="margin-left:5px">{{tag.num}}</span>
 				</v-chip>
 			</v-flex>

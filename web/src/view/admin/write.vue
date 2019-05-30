@@ -16,7 +16,7 @@
 		<v-flex xs12 lg10 xl9 style="padding:10px;height:100%;border-radius:5px;margin-bottom:50px" class="elevation-1">
 			<v-img style="width:100%;height:300px;" :src="apiHost+coverPath" @click="inputBtn">
 				<v-layout align-center justify-center wrap style="height:100%">
-					<v-flex xs2 ref="mydropzone"  >
+					<v-flex xs2>
 						<input style="display:none" type="file" id="inputBtn" ref="inputBtn" accept="image/png, image/jpeg"/>
 						<span class="text-xs-center title" style="cursor:pointer;color:#fff" ref="uploadTip">上传封面</span> 
 					</v-flex>
@@ -27,8 +27,15 @@
 			<div ref='toolbar'></div>
 			<div ref='text' style="height:70%;"></div>
 		</v-flex>
+		<v-dialog v-model="uploadLoading" hide-overlay persistent width="300">
+			<v-card	color="primary"	dark>
+				<v-card-text>
+					上传中
+					<v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
+				</v-card-text>
+			</v-card>
+		</v-dialog>
 	</v-layout>
-
 </template>
 <script>
 import wangeditor from 'wangeditor'
@@ -37,6 +44,7 @@ export default {
 	name:'write',
 	data(){
 		return{
+			uploadLoading:false,
 			title:'',//blog.title
 			editor:null,
 			chips:[],
@@ -54,7 +62,7 @@ export default {
 		drawerChange:function(){
 			this.$emit('drawerChange');
 		},
-		inputBtn:function(){//上传封面的按钮
+		inputBtn:function(){//上传封面的按钮-传递点击事件到input按钮
 			this.$refs.inputBtn.click();
 		},
 		init:function(){//初始化编辑区域
@@ -83,10 +91,13 @@ export default {
 				'redo'  // 重复
 			]
 			const _this=this;
+			editor.customConfig.uploadImgMaxSize = 2 * 1024 * 1024;
+			editor.customConfig.uploadImgMaxLength = 1;
 			editor.customConfig.customUploadImg=function(file,insert){
 				let formData =new FormData();
 				formData.append("file",file[0]);
 				formData.append("type","img")
+				_this.uploadLoading=true;
 				_this.axios({
 					method:'post',
 					url: apiHost+'/blog/upload',
@@ -94,6 +105,7 @@ export default {
 				}).then(function(res){
 					if(res.data.code==200){
 						insert(apiHost+res.data.path)
+						_this.uploadLoading=false;
 					}
 				})
 			}
@@ -139,19 +151,27 @@ export default {
 				let formData =new FormData();
 				if(this.files[0]!=null){
 					formData.append("file",this.files[0]);
-					formData.append("type","cover")
-					this.files=null;
-					_this.axios({
-							method:'post',
-							url: apiHost+'/blog/upload',
-							data:formData,
-						}).then(function(res){
-							if(res.data.code==200){
-								_this.coverPath=res.data.path;
-								_this.$refs.uploadTip.style.display='none';
-							}
-						})
+					formData.append("type","cover");
+					if(this.files[0].size>( 2 * 1024 * 1024)){
+						alert("图片大小不要超过2M")
+					}
+					else{
+						this.files=null;
+						_this.uploadLoading=true;
+						_this.axios({
+								method:'post',
+								url: apiHost+'/blog/upload',
+								data:formData,
+							}).then(function(res){
+								if(res.data.code==200){
+									_this.coverPath=res.data.path;
+									_this.$refs.uploadTip.style.display='none';
+									_this.uploadLoading=false;
+								}
+							})
+					}
 				}
+				this.value="";
 			})
 		},
 		getAllTag:function(){//获取所有标签以供选择

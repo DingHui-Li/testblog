@@ -18,7 +18,17 @@ axios.interceptors.request.use(
     config.headers['token']=localStorage['token'];
     return config;
   }
-)
+);
+axios.interceptors.response.use(res=>{
+  if(res.data.code==200){
+    return res;
+  }else if(res.data.code==-1){
+    return res;
+  }else{
+    alert("登录过期");
+    return res;
+  }
+})
 Vue.config.productionTip = false
 //export const apiHost="http://localhost:8888";
 export const apiHost="http://lidh.top:8084/blog";
@@ -36,6 +46,7 @@ const write =() =>import( './view/admin/write')
 const manage =() =>import( './view/admin/blogManage')
 const tag =() =>import( './view/admin/tagManage')
 const comment =() =>import( './view/admin/commentManage')
+const setting=()=>import('./view/admin/setting')
 
 import empty from './components/empty'
 
@@ -57,6 +68,7 @@ const routes=[
         {path:'manage',component:manage},
         {path:'tag',component:tag},
         {path:'comment',component:comment},
+        {path:'setting',component:setting},
     ]},
     {path:"/refresh",component:empty}
 ]
