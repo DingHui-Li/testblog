@@ -40,14 +40,16 @@ public class blogController {
     }
 
     @GetMapping("/getall")
-    public Map<String,Object> getall(int offset,int limit){
+    public Map<String,Object> getall(int offset,int limit,String key){
         Map<String,Object> result=new HashMap<>();
         try{
-            List<blog>  list=bd.getAll(offset,limit);
+            key="%"+key+"%";
+            List<blog>  list=bd.getAll(offset,limit,key);
             result.put("code","200");
             result.put("data",list);
         }catch (Exception e){
             result.put("code","-1");
+            e.printStackTrace();
         }
         return  result;
     }

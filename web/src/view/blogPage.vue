@@ -2,6 +2,9 @@
 	<v-layout align-center >
 			<v-flex xs12 md8 lg6 offset-md2 offset-lg3 style="margin-top:20px">
 					<v-layout wrap justify-center>
+						<v-flex xs12>
+							<v-text-field prepend-inner-icon="search" flat  solo-inverted v-on:keyup.13='submit' v-model="key"> </v-text-field>
+						</v-flex>
 						<v-flex xs12 v-if="selectTag.length!=0">
 							<v-card color=primary style="border-radius:5px;color:#fff;margin-bottom:20px">
 								<v-layout wrap>
@@ -42,6 +45,14 @@
 						</v-flex>
 					</v-layout>
 			</v-flex>
+			<v-dialog v-model="loading" hide-overlay persistent width="300">
+				<v-card	color="primary"	dark>
+					<v-card-text>
+						搜索中
+						<v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
+					</v-card-text>
+				</v-card>
+			</v-dialog>
 	</v-layout>
 </template>
 <script>
@@ -55,7 +66,9 @@ export default {
 			selectTagPanel:false,
 			mini:true,
 			drawer: true,
-			loadText:'加载更多'
+			loadText:'加载更多',
+			key:'',//搜索关键字，
+			loading:false
 		}
 	},
 	methods:{
@@ -87,23 +100,31 @@ export default {
 			return false;
 		},
 		getBlogData:function(){
+			this.loading=true;
 			let _this=this;
 			this.axios({
 				method:'get',
-				url:apiHost+"/blog/getall?offset="+this.nowBlogNum+"&limit=10"
+				url:apiHost+"/blog/getall?offset="+this.nowBlogNum+"&limit=10&key="+this.key
 			}).then(function(res){
-				let length=res.data.data.length;
-				if(length<10) _this.loadText="没有更多了";
-				for(let i=0;i<length;i++){
-					if(res.data.data[i].tag==null)res.data.data[i].tag="";
-					_this.blogData.push(res.data.data[i]);
+				if(res.data.code==200){
+					let length=res.data.data.length;
+					if(length<10) _this.loadText="没有更多了";
+					for(let i=0;i<length;i++){
+						if(res.data.data[i].tag==null)res.data.data[i].tag="";
+						_this.blogData.push(res.data.data[i]);
+					}
 				}
+				_this.loading=false;
 			})
 		},
 		imgHeight:function(){
 			if(document.body.clientWidth<500) return 150;
 			else return 200;
 		},
+		submit:function(){
+			this.blogData=[];
+			this.getBlogData();
+		}
 	},
 	computed:{
 		filter:function(){
@@ -127,6 +148,14 @@ export default {
 	},
 	updated:function(){
 		//this.imgHeight();
+	},
+	watch:{
+		key:function(newVal){
+			if(newVal==''){
+				this.blogData=[];
+				this.getBlogData();
+			}
+		}
 	}
 }
 </script>

@@ -20,7 +20,7 @@
 			</v-layout>
 		</v-toolbar>
 		<v-navigation-drawer  temporary  v-model="drawer" fixed height="100vh">
-			<v-img :src="require('../assets/bg.jpg')" style="width:100%;height:auto"></v-img>
+			<v-img :src="getHomeCover()" style="width:100%;height:auto"></v-img>
 			<v-list>
 				<v-list-tile v-for="item in catalog" :key="item.name" @click="to(item.to)" v-ripple>
 					<v-list-tile-avatar>
@@ -97,10 +97,15 @@ export default {
 				name:'',
 				title:'',
 				cover:''
-			}
+			},
+			homeCover:''
 		}
 	},
 	methods:{
+		getHomeCover:function(){
+			if(this.websiteData.cover=='') return apiHost+'/default.jpg';
+			return apiHost+this.websiteData.cover;
+		},
 		changeTheme:function(){
 			this.$emit('changeTheme');
 		},

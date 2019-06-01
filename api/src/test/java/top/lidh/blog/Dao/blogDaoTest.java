@@ -25,7 +25,7 @@ public class blogDaoTest {
 
     @Test
     public void getall(){
-        List<blog> re=bd.getAll(0,10);
+        List<blog> re=bd.getAll(0,10,"");
         System.out.println(re);
     }
 

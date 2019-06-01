@@ -34,7 +34,7 @@
 					style="border-radius:5px;color:#fff;float:left;margin:15px" :color="chipColor[Math.round(Math.random() * 5)]" min-width="200px" max-width='100%'>
 				<v-card-title class="subheading font-weight-bold;" style="padding:10px"><v-icon style="margin-right:5px;" color="white">face</v-icon> {{comment.name}}</v-card-title>
 				<v-divider></v-divider>
-				<v-card-text v-html="comment.comment" style=" word-wrap:break-word; word-break:break-all;padding 0 15px;"></v-card-text>
+				<v-card-text v-html="comment.comment" style=" word-wrap:break-word; word-break:break-all;padding:5px 15px 0 15px;"></v-card-text>
 				<v-card-text style="padding:0;padding:0 10px 5px 10px;">
 					<div class="text-xs-right caption">{{dateFormat(comment.time)}}</div>
 				</v-card-text>

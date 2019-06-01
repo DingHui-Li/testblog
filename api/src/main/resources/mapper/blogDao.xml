@@ -17,6 +17,7 @@
             from blog
             left join tag_map on blog.id=blogid
             left join tag on tagid=tag.id
+            where title like #{key} or content like #{key}
             GROUP BY blog.id
             order by blog.time desc limit #{offset},#{limit}
     </select>

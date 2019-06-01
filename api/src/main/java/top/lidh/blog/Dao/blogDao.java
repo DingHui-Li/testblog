@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface blogDao {
     blog getById(String id);//根据id获取一个blog
-    List<blog> getAll(int offset,int limit);//获取一定数量的blog信息/不包括content字段
+    List<blog> getAll(int offset,int limit,String key);//获取一定数量的blog信息/不包括content字段
     int addBlog(blog b);//添加一个blog
     int getNum();//获取blog总数
     int deleteBlog(String[] id);//根据id删除若干blog

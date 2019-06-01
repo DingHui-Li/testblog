@@ -8,7 +8,9 @@
 				</v-card-text>
 				<v-card-text>
 						<div ref='toolbar'></div>
-						<div ref='text' style="height:100px"></div>
+						<div ref='text' style="height:100px;background-color:#e0e0e0;border-radius:5px">
+							
+						</div>
 				</v-card-text>
 				<v-layout wrap justify-center >
 					<v-flex xs12 style="margin-bottom:10px" class="text-xs-center">
