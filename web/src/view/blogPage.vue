@@ -56,7 +56,7 @@
 	</v-layout>
 </template>
 <script>
-import { apiHost } from '../main';
+import { apiHost,imgHost} from '../main';
 export default {
 	name:'blogPage',
 	data(){
@@ -74,7 +74,7 @@ export default {
 	methods:{
 		coverPath:function(path){
 			if(path==null)path="/default.jpg"
-			return apiHost+path;
+			return imgHost+path;
 		},
 		dateFormat:function(date){
 			let d=new Date(date);

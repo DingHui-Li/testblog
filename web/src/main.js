@@ -32,7 +32,9 @@ axios.interceptors.response.use(res=>{
 Vue.config.productionTip = false
 //export const apiHost="http://localhost:8888";
 export const apiHost="http://lidh.top:8084/blog";
-//--------------------------路由配置----------------
+export const imgHost="http://lidh.top:8084/imgservice";
+
+//-------------------路由配置----------------
 const navbar=() =>import('./components/navbar')
 const navbar2 =()=>import('./components/navbar2')
 const aboutPage=() =>import('./view/aboutPage.vue')

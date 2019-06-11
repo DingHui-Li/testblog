@@ -44,7 +44,7 @@
 	</v-layout>
 </template>
 <script>
-import {apiHost} from '../main'
+import {apiHost,imgHost} from '../main'
 // import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import comment from '../components/comment'
 export default {
@@ -68,7 +68,7 @@ export default {
 	computed:{
 		coverPath:function(){
 			if(this.contentData.cover!=undefined)
-				return apiHost+this.contentData.cover;
+				return imgHost+this.contentData.cover;
 		},
 	},
 	methods:{

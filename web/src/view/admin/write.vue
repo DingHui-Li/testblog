@@ -39,7 +39,7 @@
 </template>
 <script>
 import wangeditor from 'wangeditor'
-import {apiHost} from '../../main'
+import {apiHost,imgHost} from '../../main'
 export default {
 	name:'write',
 	data(){
@@ -55,7 +55,7 @@ export default {
 	},
 	computed:{
 		apiHost:function(){
-			return apiHost;
+			return imgHost;
 		}
 	},
 	methods:{
@@ -100,11 +100,11 @@ export default {
 				_this.uploadLoading=true;
 				_this.axios({
 					method:'post',
-					url: apiHost+'/blog/upload',
+					url: imgHost+'/img/upload',
 					data:formData,
 				}).then(function(res){
 					if(res.data.code==200){
-						insert(apiHost+res.data.path)
+						insert(imgHost+res.data.path)
 						_this.uploadLoading=false;
 					}
 				})
@@ -160,7 +160,7 @@ export default {
 						_this.uploadLoading=true;
 						_this.axios({
 								method:'post',
-								url: apiHost+'/blog/upload',
+								url: imgHost+'/img/upload',
 								data:formData,
 							}).then(function(res){
 								if(res.data.code==200){
