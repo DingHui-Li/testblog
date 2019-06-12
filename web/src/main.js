@@ -30,8 +30,8 @@ axios.interceptors.response.use(res=>{
   }
 })
 Vue.config.productionTip = false
-export const apiHost="http://localhost:8888";
-//export const apiHost="http://lidh.top:8084/blog";
+//export const apiHost="http://localhost:8888";
+export const apiHost="http://lidh.top/api";
 export const imgHost="http://lidh.top:8084/imgservice";
 
 //-------------------路由配置----------------
