@@ -132,7 +132,7 @@ export default {
 			let offset=(this.nowPage-1)*20;
 			this.axios({
 				method:'get',
-				url:apiHost+"/blog/getall?offset="+offset+"&limit=20"
+				url:apiHost+"/blog/getall?offset="+offset+"&limit=20&key="+""
 			}).then(function(res){
 				_this.checkBox=[];
 				let data=res.data.data;

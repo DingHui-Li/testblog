@@ -88,7 +88,7 @@ export default {
 			let _this=this;
 			this.axios({
 				method:'get',
-				url:apiHost+"/blog/getall?offset=0&limit=3"
+				url:apiHost+"/blog/getall?offset=0&limit=3&key="+""
 			}).then(function(res){
 				if(res.data.code==200)
 					_this.blogData=res.data.data;

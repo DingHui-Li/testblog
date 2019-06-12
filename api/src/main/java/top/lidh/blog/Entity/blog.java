@@ -1,8 +1,9 @@
 package top.lidh.blog.Entity;
 
+import com.fasterxml.jackson.databind.ser.std.SerializableSerializer;
 import java.util.Date;
 
-public class blog {
+public class blog extends SerializableSerializer {
     private String id;
     private String title;
     private String cover;
