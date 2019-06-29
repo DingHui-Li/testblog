@@ -60,7 +60,7 @@
 	</v-layout>
 </template>
 <script>
-import {apiHost} from '../../main'
+import {apiHost,imgHost} from '../../main'
 import qs from 'qs'
 export default {
 	name:'manage',
@@ -92,7 +92,7 @@ export default {
 		},
 		getCover:function(){
 			if(this.websiteData.cover=='') return apiHost+'/default.jpg';
-			return apiHost+this.websiteData.cover;
+			return imgHost+this.websiteData.cover;
 		},
 		getData:function(){
 			this.axios({
@@ -139,7 +139,7 @@ export default {
 						_this.uploadLoading=true;
 						_this.axios({
 								method:'post',
-								url: apiHost+'/blog/upload',
+								url: imgHost+'/img/upload',
 								data:formData,
 							}).then(function(res){
 								if(res.data.code==200){

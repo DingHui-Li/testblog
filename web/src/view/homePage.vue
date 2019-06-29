@@ -58,7 +58,7 @@
 	</div>
 </template>
 <script>
-import {apiHost} from '../main'
+import {apiHost,imgHost} from '../main'
 export default {
 	name:'homePage',
 	props:['websiteTitle','homeCover'],
@@ -75,7 +75,7 @@ export default {
 		},
 		getHomeCover:function(){
 			if(this.homeCover=='') return apiHost+'/default.jpg';
-			return apiHost+this.homeCover;
+			return imgHost+this.homeCover;
 		},
 		dateFormat:function(date){
 			let d=new Date(date);
